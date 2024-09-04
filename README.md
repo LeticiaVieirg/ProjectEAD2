@@ -6,7 +6,9 @@ Desenvolvimento de um sistema na Linguagem C para gerenciamento da clínica odon
 > [Letícia Vieira Gonçalves](https://github.com/LeticiaVieirg)
 >
 > [Maria Isabelly de Lima Sousa](https://github.com/isabellylimals)
+> 
 > [Allan Gabriel Silva de Freitas]()
+> 
 > [Levitico Rimon Perez Andrade Alves]()
 ***
 
