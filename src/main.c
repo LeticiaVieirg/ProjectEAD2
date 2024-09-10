@@ -4,7 +4,7 @@ int main(void) {
     Inputs *foundItem;
 
     initializeTable(table);
-
+//depois le,=mbrar de chamar as funcoes corretas nos case
     do {
        void menu();
        printf("Escolha uma opção do menu acima:\n");
