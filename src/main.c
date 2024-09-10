@@ -6,7 +6,8 @@ int main(void) {
     initializeTable(table);
 
     do {
-        printf("\n\t0 - Sair\n\t1 - Inserir\n\t2 - Buscar\n\t3 - Imprimir\n");
+       void menu();
+       printf("Escolha uma opção do menu acima:\n");
         scanf("%d", &option);
         getchar();
 
