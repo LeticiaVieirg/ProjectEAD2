@@ -2,7 +2,7 @@
 
 
 void menu(){
-printf("=========MENU===========");
+printf("=========MENU===========\n");
 printf("[1] Adicionar consulta\n");
 printf("[2] Buscar Consulta\n");
 printf("[3] Remover Consulta\n");

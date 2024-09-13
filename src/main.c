@@ -1,14 +1,20 @@
+#include "../include/functions.h"
+#include "../include/stock.h"
+
 int main(void) {
     int option, serachKey;
-    Inputs table[SIZE];
-    Inputs *foundItem;
+    List table[SIZE];
+    Node *foundItem;
 
     initializeTable(table);
 
     do {
-       void menu();
-       printf("Escolha uma opção do menu acima:\n");
-        scanf("%d", &option);
+        menu();
+        printf("Escolha uma opcao do menu acima:\n");
+        while (scanf("%d", &option) != 1) {
+            printf("Erro: Please, enter an integer value for the option!\n:");
+            while (getchar() != '\n');
+        }
         getchar();
 
         switch (option) {
@@ -23,9 +29,9 @@ int main(void) {
                 foundItem = search(table, serachKey);
                 if(foundItem != NULL){
                     printf("Product found: \n");
-                    printf("\tBarcode: %d\n", foundItem->barcode);
-                    printf("\tProduct: %s\n", foundItem->productName);
-                    printf("\tAmount: %d\n", foundItem->amount);
+                    printf("\tBarcode: %d\n", foundItem->input.barcode);
+                    printf("\tProduct: %s\n", foundItem->input.productName);
+                    printf("\tAmount: %d\n", foundItem->input.amount);
                 } else{
                     printf("Product not found.\n");
                 }
@@ -37,7 +43,7 @@ int main(void) {
                 printf("Exiting...\n");
                 break;
             default:
-                printf("Opção informada é inválida...\n");
+                printf("Opcao informada é inválida...\n");
         }
 
     } while (option != 0);
