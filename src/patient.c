@@ -1,3 +1,6 @@
+#include "../include/dental_appointment.h"
+#include "../include/patiente.h"
+#include "../include/functions.h"
 
 Patient patients[MAX_PACIENTES];
 int num_patients = 0;
