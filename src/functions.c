@@ -1,11 +1,16 @@
 #include "../include/functions.h"
 
-
-void menu(){
-printf("=========MENU===========\n");
-printf("[1] Adicionar consulta\n");
-printf("[2] Buscar Consulta\n");
-printf("[3] Remover Consulta\n");
-printf("[4] Adicionar insumo ao estoque\n");
-printf("[5] Buscar Insumo no estoque\n");
-printf("[6] Buscar Paciente\n"); }
+void menu() {
+    printf("\n=======================================\n");
+    printf("              Dental Clinic System\n");
+    printf("=======================================\n");
+    printf("[1] Schedule Appointment\n");
+    printf("[2] Search for Appointment\n");
+    printf("[3] Cancel Appointment\n");
+    printf("[4] Add Inventory Item\n");
+    printf("[5] Search for Inventory Item\n");
+    printf("[6] Search for Patient\n");
+    printf("[7] Exit\n");
+    printf("=======================================\n");
+    printf("Enter your choice: ");
+}
