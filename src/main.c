@@ -48,6 +48,28 @@ int main(void) {
             case 3:
                 printInputs(table);
                 break;
+            case 4:
+            case 5:
+            case 6: {
+                char cpf_to_find[15];
+                printf("Enter the patient's CPF to search: ");
+                fgets(cpf_to_find, sizeof(cpf_to_find), stdin);
+                cpf_to_find[strcspn(cpf_to_find, "\n")] = '\0';
+
+                int index = find_patient_by_cpf(cpf_to_find);
+                if (index != -1) {
+                    printf("Patient found:\n");
+                    // Print the patient's data
+                } else {
+                    printf("Patient not found. Do you want to register? (y/n): ");
+                    char answer;
+                    scanf(" %c", &answer);
+                    if (answer == 'y' || answer == 'Y') {
+                        register_patient();
+                    }
+                }
+                break;
+            }
             case 0:
                 printf("Exiting...\n");
                 break;
@@ -59,4 +81,3 @@ int main(void) {
 
     return 0;
 }
-
