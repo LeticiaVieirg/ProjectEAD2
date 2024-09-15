@@ -25,8 +25,11 @@ void insertInputs(List table[]) {
     }
 
     printf("Enter barcode: ");
-    scanf("%d", &newInput.barcode);
-    getchar();
+    while (scanf("%d", &newInput.barcode) != 1) {
+        printf("Error: Please, enter an integer value for the barcode!\n:");
+        while (getchar() != '\n');
+    }
+    while (getchar() != '\n');
 
     if (search(table, newInput.barcode) != NULL) {
         printf("Error: A product with this barcode already exists!\n");
@@ -35,12 +38,16 @@ void insertInputs(List table[]) {
     }
 
     printf("Enter product name: ");
-    fgets(newInput.productName, 50, stdin);
-    newInput.productName[strcspn(newInput.productName, "\n")] = '\0';  // Remove newline character
+    //fgets(newInput.productName, 50, stdin);
+    //newInput.productName[strcspn(newInput.productName, "\n")] = '\0';  // Remove newline character
+    scanf(" %s", &newInput.productName);
 
     printf("Enter amount: ");
-    scanf("%d", &newInput.amount);
-    getchar();
+    while (scanf("%d", &newInput.amount) != 1) {
+        printf("Error: Please, enter an integer value for the amount!\n:");
+        while (getchar() != '\n');
+    }
+    while (getchar() != '\n');
 
     newNode->input = newInput;
     newNode->next = NULL;
@@ -91,7 +98,7 @@ void printInputs(List table[]) {
 }
 
 void printFileTxt(List table[]){
-    FILE *file = fopen("bankStock.txt", "w");
+    FILE *file = fopen("output/bankStock.txt", "w");
     if(file == NULL){
         printf("error when creating/opening file! \n");
         return;
