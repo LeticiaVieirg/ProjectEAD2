@@ -9,7 +9,6 @@ int main(void) {
     initializeTable(table);
     do {
         menu();
-        printf("Choose an option from the menu above:\n");
 
         while (scanf("%d", &option) != 1) {
             printf("Erro: Please, enter an integer value for the option!\n:");
