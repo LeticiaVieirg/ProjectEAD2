@@ -6,5 +6,5 @@
 
 
 void menu();
-
+void number_treatment(char *num_variable);
 #endif /* FUNCOES_H */

@@ -7,10 +7,10 @@ int main(void) {
     Node *foundItem;
 
     initializeTable(table);
-//depois le,=mbrar de chamar as funcoes corretas nos case
     do {
         menu();
-        printf("Escolha uma opcao do menu acima:\n");
+        printf("Choose an option from the menu above:\n");
+
         while (scanf("%d", &option) != 1) {
             printf("Erro: Please, enter an integer value for the option!\n:");
             while (getchar() != '\n');

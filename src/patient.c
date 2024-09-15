@@ -1,7 +1,7 @@
 #include "../include/dental_appointment.h"
-#include "../include/patiente.h"
+#include "../include/patient.h"
 #include "../include/functions.h"
-
+#define MAX_PACIENTES 100
 Patient patients[MAX_PACIENTES];
 int num_patients = 0;
 
@@ -31,10 +31,17 @@ void register_patient() {
         return;
     }
 
+    char age_string[10];
+    printf("Enter the patient's age: ");
+    scanf("%s", age_string);
+    number_treatment(age_string);
+    new_patient.age = atoi(age_string);
+
     // Add the patient to the list
     patients[num_patients++] = new_patient;
     printf("Patient registered successfully!\n");
 }
+
 
 //Implement in main.c same parts of code
 /*
@@ -59,4 +66,4 @@ int main() {
     }
 
   */
-}
+

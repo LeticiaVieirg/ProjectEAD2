@@ -14,3 +14,15 @@ void menu() {
     printf("=======================================\n");
     printf("Enter your choice: ");
 }
+
+void number_treatment(char *num_variable) {
+    int counter, counter2;
+    for (counter = 0; num_variable[counter] != '\0'; counter++) {
+        if (num_variable[counter] < 48 || num_variable[counter] > 57) {
+            for (counter2 = counter; num_variable[counter2] != '\0'; counter2++) {
+                num_variable[counter2] = num_variable[counter2 + 1];
+            }
+            counter--;
+        }
+    }
+}
