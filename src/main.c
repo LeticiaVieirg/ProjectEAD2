@@ -2,19 +2,24 @@
 #include "../include/stock.h"
 
 int main(void) {
-    int option, serachKey;
+    int option;
+    int searchKey;
     List table[SIZE];
     Node *foundItem;
 
     initializeTable(table);
-    do {
-        menu();
 
-        while (scanf("%d", &option) != 1) {
-            printf("Erro: Please, enter an integer value for the option!\n:");
-            while (getchar() != '\n');
-        }
-        getchar();
+    do {
+        do {
+            menu();
+            printf("Choose an option from the menu: ");
+            
+            if (scanf(" %d", &option) != 1 || option < 0 || option > 9) {
+                printf("Invalid option. Please enter a number between 0 and 9.\n");
+                clear_buffer(); // This function will clear the input buffer
+                option = -1; // Set to invalid option to trigger loop
+            }
+        } while (option < 0 || option > 9);
 
         switch (option) {
             case 1:
@@ -22,16 +27,21 @@ int main(void) {
                 break;
             case 2:
                 printf("Enter barcode to search: ");
-                scanf("%d", &serachKey);
-                getchar();
-
-                foundItem = search(table, serachKey);
-                if(foundItem != NULL){
-                    printf("Product found: \n");
+                
+                // Checking if the input is a valid integer
+                while (scanf("%d", &searchKey) != 1) {
+                    printf("Error: Please enter a valid integer for the barcode!\n");
+                    clear_buffer();
+                }
+                getchar(); // To consume the newline character
+                
+                foundItem = search(table, searchKey);
+                if (foundItem != NULL) {
+                    printf("Product found:\n");
                     printf("\tBarcode: %d\n", foundItem->input.barcode);
                     printf("\tProduct: %s\n", foundItem->input.productName);
                     printf("\tAmount: %d\n", foundItem->input.amount);
-                } else{
+                } else {
                     printf("Product not found.\n");
                 }
                 break;
@@ -42,10 +52,11 @@ int main(void) {
                 printf("Exiting...\n");
                 break;
             default:
-                printf("Opcao informada é inválida...\n");
+                printf("The option entered is invalid...\n");
         }
 
     } while (option != 0);
 
     return 0;
 }
+

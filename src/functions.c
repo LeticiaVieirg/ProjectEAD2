@@ -26,3 +26,7 @@ void number_treatment(char *num_variable) {
         }
     }
 }
+void clear_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF); // Clears the buffer by reading until newline or EOF
+}
