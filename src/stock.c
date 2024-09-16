@@ -38,9 +38,8 @@ void insertInputs(List table[]) {
     }
 
     printf("Enter product name: ");
-    //fgets(newInput.productName, 50, stdin);
-    //newInput.productName[strcspn(newInput.productName, "\n")] = '\0';  // Remove newline character
-    scanf(" %s", &newInput.productName);
+    fgets(newInput.productName, 50, stdin);
+    newInput.productName[strcspn(newInput.productName, "\n")] = '\0';  // Remove newline character
 
     printf("Enter amount: ");
     while (scanf("%d", &newInput.amount) != 1) {
@@ -98,7 +97,7 @@ void printInputs(List table[]) {
 }
 
 void printFileTxt(List table[]){
-    FILE *file = fopen("output/bankStock.txt", "w");
+    FILE *file = fopen("bankStock.txt", "w");
     if(file == NULL){
         printf("error when creating/opening file! \n");
         return;
