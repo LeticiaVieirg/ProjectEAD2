@@ -66,3 +66,32 @@ void heapBelow(Heap *heap, int index){
         heapBelow(heap, bigger);
     }
 }
+
+Patient removeHeap(Heap *heap){
+    if(heap->size == 0){
+        printf("Heap Null!\n");
+        exit(1);
+    }
+
+    Patient patientRemoved = heap->Patient[0];
+    heap->Patient[0] = heap->Patient[heap->size - 1];
+    heap->size--;
+
+    heapBelow(heap, 0);
+
+    return patientRemoved;
+}
+
+void freeHeap(Heap *heap){
+    free(heap->Patient);
+    free(heap);
+}
+
+void displayHeap(Heap *heap){
+    printf("Query List: \n");
+    for(int i = 0; i < heap->size; i++){
+        printf("Position %d", i + 1);
+        printf("Patient: %d\n", heap->Patient[i].age);
+        printf("Description: %s\n", heap->Patient[i].description);
+    }
+}
