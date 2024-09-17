@@ -1,6 +1,5 @@
-#include "../include/dental_appointment.h"
 #include "../include/patient.h"
-#include "../include/functions.h"
+
 #define MAX_PACIENTES 100
 Patient patients[MAX_PACIENTES];
 int num_patients = 0;
@@ -44,26 +43,24 @@ void register_patient() {
 
 
 //Implement in main.c same parts of code
-/*
-int main() {
 
-    char cpf_to_find[15];
-    printf("Enter the patient's CPF to search: ");
-    fgets(cpf_to_find, sizeof(cpf_to_find), stdin);
-    cpf_to_find[strcspn(cpf_to_find, "\n")] = '\0';
+// int main() {
 
-    int index = find_patient_by_cpf(cpf_to_find);
-    if (index != -1) {
-        printf("Patient found:\n");
-        // Print the patient's data
-    } else {
-        printf("Patient not found. Do you want to register? (y/n): ");
-        char answer;
-        scanf(" %c", &answer);
-        if (answer == 'y' || answer == 'Y') {
-            register_patient();
-        }
-    }
+//     char cpf_to_find[15];
+//     printf("Enter the patient's CPF to search: ");
+//     fgets(cpf_to_find, sizeof(cpf_to_find), stdin);
+//     cpf_to_find[strcspn(cpf_to_find, "\n")] = '\0';
 
-  */
-
+//     int index = find_patient_by_cpf(cpf_to_find);
+//     if (index != -1) {
+//         printf("Patient found:\n");
+//         // Print the patient's data
+//     } else {
+//         printf("Patient not found. Do you want to register? (y/n): ");
+//         char answer;
+//         scanf(" %c", &answer);
+//         if (answer == 'y' || answer == 'Y') {
+//             register_patient();
+//         }
+//     }
+// }

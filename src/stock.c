@@ -10,10 +10,6 @@ int hashFunction(int key) {
     return key % SIZE;
 }
 
-void printFileTxt(List table[]);
-List *loadFromFile(List table[]);
-Node *search(List table[], int key);
-
 void insertInputs(List table[]) {
     Inputs newInput;
     Node* newNode = (Node*) malloc(sizeof(Node));

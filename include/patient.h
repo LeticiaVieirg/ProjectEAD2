@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../include/functions.h"
+#include "../include/dental_appointment.h"
 
 //Defining size
 #define MAX_PATIENTS 100 
