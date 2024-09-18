@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "stock.h": "c"
+        "stock.h": "c",
+        "dental_appointment.h": "c",
+        "functions.h": "c"
     }
 }

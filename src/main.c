@@ -7,8 +7,6 @@ int main(void) {
     List table[SIZE];
     Node *foundItem;
 
-    initializeTable(table);
-
     do {
         do {
             menu();

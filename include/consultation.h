@@ -1,5 +1,6 @@
 //declaring the libraries
 #include "../include/stock.h"
+#include "../include/patient.h"
 
 typedef struct {
     int age;
