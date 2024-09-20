@@ -60,4 +60,7 @@ The management system for a dental clinic - CHAR OF SMILLE, developed in C Langu
 - [x] Exit
 ***
 
+
+## **Repository Organization**
+
 ## **Build and Run**
