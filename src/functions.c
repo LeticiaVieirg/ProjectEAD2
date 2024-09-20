@@ -51,11 +51,12 @@ void menuStock(){
         printf("[3] Print stock\n");
         printf("[4] Delete an item from stock\n");
         printf("[5] Edit stock item\n");
-        printf("[6] Return to main menu\n");
+        printf("[6] Add more to stock\n");
+        printf("[7] Return to main menu\n");
         printf("=========================================\n");
         printf("Enter your choice: ");
         
-        if (scanf("%d", &option) != 1 || option < 1 || option > 6) {
+        if (scanf("%d", &option) != 1 || option < 1 || option > 7) {
             printf("Invalid option. Please enter a number between 1 and 6.\n");
             clear_buffer();
             option = -1;
@@ -78,12 +79,14 @@ void menuStock(){
                 // Função para editar um item do estoque
                 break;
             case 6:
+                break;
+            case 7:
                 printf("Returning to main menu...\n");
                 break;
             default:
                 printf("Invalid option.\n");
         }
-    } while(option != 6);
+    } while(option != 7);
 }
 
 void menuPatient(){
