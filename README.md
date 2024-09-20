@@ -12,28 +12,28 @@ Development of a system in C Language for the management of the dental clinic "C
 ***
 
 # **Table of Contents**
-> [Introduction](#introdução)
+> [Introduction](#introduction)
 > 
-> [Problemática](#problemática)
+> [Problematic](#problematic)
 > 
-> [Goal](#objetivo)
+> [Goal](#goal)
 >
-> [Desenvolviment](#desenvolvimento)
+> [Development](#development)
 > 
-> [Repository Organization](#organização-do-repositório)
+> [Repository Organization](#repository-organization)
 >
-> [Build and rum](#compilação-e-execução)
+> [Build and rum](#build-and-run)
 >
 
 ***
 
 
-## **Introdução**
+## **Introduction**
 The efficient management of a dental clinic is crucial to ensure its smooth operation and maximum effectiveness in patient care. This ranges from the organization of medical records to the scheduling of appointments and the administration of available resources. In order to simplify all the operations necessary for the operation of the business.
 
 This system uses data structures such as linked lists to organize patient information, offices, treatment histories, and other aspects relevant to the clinic.
 
-## **Problemática**
+## **Problematic**
 The management system for a dental clinic - CHAR OF SMILLE, developed in C Language, aims to simplify the operations crucial to the efficient functioning of the establishment. It provides features such as adding, deleting, searching and editing patients and appointments, as well as listing patients and their appointment histories. These features are essential to ensure effective and organized management of dental clinic activities.
 
 ## **Goal**
