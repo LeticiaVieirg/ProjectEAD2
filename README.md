@@ -1,64 +1,63 @@
 # **Sistema de Gestão - Clínica Odontológica**
-Desenvolvimento de um sistema na Linguagem C para gerenciamento da clínica odontológica "Char of Smiles", incluindo a manipulação de estoque de equipamentos, consultas e pacientes.
-
+Development of a system in C Language for the management of the dental clinic "Char of Smiles", including the manipulation of equipment stock, consultations and patients.
 
 ## **Desenvolvedores**
-> [Letícia Vieira Gonçalves](https://github.com/LeticiaVieirg)
+> [Letícia Vieira Gonçalves - Git Master](https://github.com/LeticiaVieirg)
 >
-> [Maria Isabelly de Lima Sousa](https://github.com/isabellylimals)
+> [Maria Isabelly de Lima Sousa - Edit](https://github.com/isabellylimals)
 > 
-> [Allan Gabriel Silva de Freitas]()
+> [Allan Gabriel Silva de Freitas - Encoder](https://github.com/Allan-Gabriell)
 > 
-> [Levitico Rimon Perez Andrade Alves]()
+> [Levitico Rimon Perez Andrade Alves - Testator](https://github.com/LEVEL303)
 ***
 
-# **Tabela de conteúdo**
-> [Introdução](#introdução)
+# **Table of Contents**
+> [Introduction](#introdução)
 > 
 > [Problemática](#problemática)
 > 
-> [Objetivo](#objetivo)
+> [Goal](#objetivo)
 >
-> [Desenvolvimento](#desenvolvimento)
+> [Desenvolviment](#desenvolvimento)
 > 
-> [Organização do repositório](#organização-do-repositório)
+> [Repository Organization](#organização-do-repositório)
 >
-> [Compilação e Execução](#compilação-e-execução)
+> [Build and rum](#compilação-e-execução)
 >
 
 ***
 
 
 ## **Introdução**
-A gestão eficiente de uma clínica odontológica é crucial para garantir sua operação sem problemas e a máxima eficácia nos atendimentos aos pacientes. Isso abrange desde a organização dos prontuários até o agendamento de consultas e a administração dos recursos disponíveis. De forma a simplificar todas as operações necessárias para o funcionamento do negócio.
+The efficient management of a dental clinic is crucial to ensure its smooth operation and maximum effectiveness in patient care. This ranges from the organization of medical records to the scheduling of appointments and the administration of available resources. In order to simplify all the operations necessary for the operation of the business.
 
-Esse sistema utiliza estruturas de dados como listas encadeadas para organizar as informações dos pacientes, consultórios, históricos de tratamento e outros aspectos relevantes para a clínica. 
+This system uses data structures such as linked lists to organize patient information, offices, treatment histories, and other aspects relevant to the clinic.
 
 ## **Problemática**
-O sistema de gerenciamento para uma clínica odontológica - CHAR OF SMILLE, desenvolvido em Linguagem C, tem como objetivo simplificar as operações cruciais para o funcionamento eficiente do estabelecimento. Ele proporciona funcionalidades como adicionar, excluir, buscar e editar pacientes e consultas, além de listar os pacientes e seus históricos de consultas. Essas funcionalidades são essenciais para garantir uma gestão eficaz e organizada das atividades da clínica odontológica.
+The management system for a dental clinic - CHAR OF SMILLE, developed in C Language, aims to simplify the operations crucial to the efficient functioning of the establishment. It provides features such as adding, deleting, searching and editing patients and appointments, as well as listing patients and their appointment histories. These features are essential to ensure effective and organized management of dental clinic activities.
 
-## **Objetivo**
+## **Goal**
 
-## **Desenvolvimento**
+## **Development**
 
-### Atribuições
-#### *Atributos Consultas*
-- [x] Idetificação
-- [x] Tipo
-- [x] Equipamentos disponíveis - Insumos
-- [x] Pacientes
+### Attributes
+#### *attributes*
+- [x] Identification
+- [x] Type
+- [x] Available Equipment - Stock
+- [x] Patient
 
-#### *Atributos Pacientes*
-- [x] Nome
-- [x] Idade
+#### *Patients Attributts*
+- [x] Name
+- [x] Age
 - [x] CPF
 
 #### *Menu*
-- [x] Adicionar consultas
-- [x] Remover consultas
-- [x] Buscar consultas
-- [x] Imprimir consultas
-- [x] Sair
+- [x] Added
+- [x] Delete 
+- [x] Search 
+- [x] Print 
+- [x] Exit
 ***
 
-## **Compição e execução**
+## **Build and Run**
