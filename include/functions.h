@@ -6,6 +6,9 @@
 
 
 void menu();
+void menuStock();
+void menuPatient();
+void menuConsultation();
 void number_treatment(char *num_variable);
 void clear_buffer();
 #endif /* FUNCOES_H */
