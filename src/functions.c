@@ -1,45 +1,7 @@
 #include "../include/functions.h"
 
-void menu() {
-    int option;
 
-    do {
-        printf("\n=======================================\n");
-        printf("           Dental Clinic System          \n");
-        printf("=========================================\n");
-        printf("[1] Stock area\n");
-        printf("[2] Patient area\n");
-        printf("[3] Consultation area\n");
-        printf("[4] Exit\n");
-        printf("=========================================\n");
-        printf("Enter your choice: ");
-        
-        if (scanf("%d", &option) != 1 || option < 0 || option > 4) {
-            printf("Invalid option. Please enter a number between 1 and 4.\n");
-            clear_buffer();
-            option = -1;
-        }
-
-        switch (option) {
-            case 1:
-                menuStock();
-                break;
-            case 2:
-                menuPatient();
-                break;
-            case 3:
-                menuConsultation();
-                break;
-            case 4:
-                printf("Exiting...\n");
-                break;
-            default:
-                printf("Option entered is invalid...\n");
-        }
-    } while (option != 4);
-}
-
-void menuStock(){
+void menuStock(List table[]) {
     int option;
 
     do {
@@ -57,28 +19,38 @@ void menuStock(){
         printf("Enter your choice: ");
         
         if (scanf("%d", &option) != 1 || option < 1 || option > 7) {
-            printf("Invalid option. Please enter a number between 1 and 6.\n");
+            printf("Invalid option. Please enter a number between 1 and 7.\n");
             clear_buffer();
             option = -1;
         }
 
         switch(option) {
             case 1:
-                // Função para registrar item no estoque
+                insertInputs(table);  // Função para registrar item no estoque
                 break;
-            case 2:
-                // Função para buscar item no estoque
+            case 2: {
+                int barcode;
+                printf("Enter barcode to search: ");
+                scanf("%d", &barcode);
+                Node* foundItem = search(table, barcode);
+                if (foundItem) {
+                    printf("Product found: %s, Amount: %d\n", foundItem->input.productName, foundItem->input.amount);
+                } else {
+                    printf("Product not found.\n");
+                }
                 break;
+            }
             case 3:
-                // Função para imprimir o estoque
+                printInputs(table);  // Função para imprimir o estoque
                 break;
             case 4: 
-                // Função para deletar um item do estoque
+                removeInput(table);  // Função para deletar um item do estoque
                 break;
             case 5:
-                // Função para editar um item do estoque
+                editInput(table);    // Função para editar um item do estoque
                 break;
             case 6:
+                increment(table);    // Função para adicionar mais ao estoque
                 break;
             case 7:
                 printf("Returning to main menu...\n");

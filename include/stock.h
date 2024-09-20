@@ -51,3 +51,5 @@ void decrement(List table[]);
 void increment(List table[]);
 
 void removeInput(List table[]);
+
+void editInput(List table[]);

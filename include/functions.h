@@ -3,12 +3,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../include/stock.h"
 
 
-void menu();
-void menuStock();
+void menuStock(List table[]);
 void menuPatient();
 void menuConsultation();
-void number_treatment(char *num_variable);
 void clear_buffer();
 #endif /* FUNCOES_H */
