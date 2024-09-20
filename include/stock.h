@@ -49,3 +49,5 @@ void decrement(List table[]);
 
 //Function that increases the amount of inputs
 void increment(List table[]);
+
+void removeInput(List table[]);

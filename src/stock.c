@@ -1,7 +1,7 @@
 #include "../include/stock.h"
 
 void initializeTable(List table[]) {
-    for(int i = 0; i < SIZE; i++){
+    for (int i = 0; i < SIZE; i++) {
         table[i] = NULL;
     }
 }
@@ -12,9 +12,9 @@ int hashFunction(int key) {
 
 void insertInputs(List table[]) {
     Inputs newInput;
-    Node* newNode = (Node*) malloc(sizeof(Node));
+    Node* newNode = (Node*)malloc(sizeof(Node));
 
-    if(newNode == NULL){
+    if (newNode == NULL) {
         printf("Error allocating memory...\n");
         free(newNode);
         return;
@@ -29,13 +29,13 @@ void insertInputs(List table[]) {
 
     if (search(table, newInput.barcode) != NULL) {
         printf("Error: A product with this barcode already exists!\n");
-        free(newNode);  // Free the memory since we are not going to use it
+        free(newNode);
         return;
     }
 
     printf("Enter product name: ");
     fgets(newInput.productName, 50, stdin);
-    newInput.productName[strcspn(newInput.productName, "\n")] = '\0';  // Remove newline character
+    newInput.productName[strcspn(newInput.productName, "\n")] = '\0';
 
     printf("Enter amount: ");
     while (scanf("%d", &newInput.amount) != 1) {
@@ -57,12 +57,12 @@ void insertInputs(List table[]) {
     printFileTxt(table);
 }
 
-Node *search(List table[], int key){
+Node* search(List table[], int key) {
     int id = hashFunction(key);
-    Node *current = table[id];
+    Node* current = table[id];
 
-    while(current != NULL){
-        if(current->input.barcode == key){
+    while (current != NULL) {
+        if (current->input.barcode == key) {
             return current;
         }
         current = current->next;
@@ -81,7 +81,7 @@ void printInputs(List table[]) {
                 printf("    Product: %s\n", current->input.productName);
                 printf("    Amount: %d\n", current->input.amount);
                 current = current->next;
-                if(current != NULL){
+                if (current != NULL) {
                     printf(" - - - - - - - - - - - - - - - - - - - - \n");
                 }
             }
@@ -92,17 +92,17 @@ void printInputs(List table[]) {
     }
 }
 
-void printFileTxt(List table[]){
-    FILE *file = fopen("bankStock.txt", "w");
-    if(file == NULL){
-        printf("error when creating/opening file! \n");
+void printFileTxt(List table[]) {
+    FILE* file = fopen("bankStock.txt", "w");
+    if (file == NULL) {
+        printf("Error when creating/opening file!\n");
         return;
     }
 
-    for(int i = 0; i < SIZE; i++){
-        if(table[i]  != NULL){
-            Node *current = table[i];
-            while (current != NULL){
+    for (int i = 0; i < SIZE; i++) {
+        if (table[i] != NULL) {
+            Node* current = table[i];
+            while (current != NULL) {
                 fprintf(file, "%d\n", current->input.barcode);
                 fprintf(file, "%s\n", current->input.productName);
                 fprintf(file, "%d\n", current->input.amount);
@@ -115,34 +115,33 @@ void printFileTxt(List table[]){
     printf("Data successfully written to bankStock.txt!\n");
 }
 
-List *loadFromFile(List table[]){
-    FILE *file = fopen("bankStock.txt", "r");
-    if(file == NULL){
+List* loadFromFile(List table[]) {
+    FILE* file = fopen("bankStock.txt", "r");
+    if (file == NULL) {
         printf("File not found. Initializing table with NULL values...\n");
-        initializeTable(table); // Initialize table with NULL values if file doesn't exist
+        initializeTable(table);
         return table;
     }
 
-    initializeTable(table); // Initialize table with NULL values
+    initializeTable(table);
 
     int barcode, amount;
     char productName[50];
 
-    while(fscanf(file, "%d\n", &barcode) != EOF) {
-        // Use fgets to read the product name, making sure to handle the newline character
-        if(fgets(productName, sizeof(productName), file) != NULL) {
-            productName[strcspn(productName, "\n")] = '\0';  // Remove newline character from product name
+    while (fscanf(file, "%d\n", &barcode) != EOF) {
+        if (fgets(productName, sizeof(productName), file) != NULL) {
+            productName[strcspn(productName, "\n")] = '\0';
         } else {
             printf("Error reading product name from file.\n");
-            continue;  // Skip this entry and go to the next one
+            continue;
         }
 
         fscanf(file, "%d\n", &amount);
 
         Inputs newInput;
-        Node* newNode = (Node*) malloc(sizeof(Node));
+        Node* newNode = (Node*)malloc(sizeof(Node));
 
-        if(newNode == NULL){
+        if (newNode == NULL) {
             printf("Error allocating memory...\n");
             free(newNode);
             fclose(file);
@@ -168,22 +167,23 @@ List *loadFromFile(List table[]){
     return table;
 }
 
-void decrement(List table[]){
+void decrement(List table[]) {
     int key, quantity;
     Node* foundItem;
 
     printf("Registered products:\n");
     printInputs(table);
-    
+
     printf("Enter the barcode of the input you want: ");
     scanf("%d", &key);
+    getchar();
 
     foundItem = search(table, key);
-    
+
     if (foundItem != NULL) {
         printf("Enter the quantity you want: ");
-        scanf("%d", &quantity);  
-        // Check if there is enough stock to decrement
+        scanf("%d", &quantity);
+
         if (foundItem->input.amount >= quantity) {
             foundItem->input.amount -= quantity;
             printf("Decrement successful. New amount: %d\n", foundItem->input.amount);
@@ -204,15 +204,77 @@ void increment(List table[]) {
 
     printf("Enter the barcode of the input you want: ");
     scanf("%d", &key);
+    getchar();
 
     foundItem = search(table, key);
 
     if (foundItem != NULL) {
         printf("Enter the quantity you want to add: ");
         scanf("%d", &quantity);
-        // Increment the quantity
         foundItem->input.amount += quantity;
         printf("Increment successful. New amount: %d\n", foundItem->input.amount);
+    } else {
+        printf("Product not found.\n");
+    }
+}
+
+void removeInput(List table[]) {
+    int key;
+    int id;
+    Node *current, *prev = NULL;
+
+    printf("Enter the barcode of the product you want to remove: ");
+    scanf("%d", &key);
+    getchar();
+
+    id = hashFunction(key);
+    current = table[id];
+
+    while (current != NULL) {
+        if (current->input.barcode == key) {
+            if (prev == NULL) {
+                table[id] = current->next;
+            } else {
+                prev->next = current->next;
+            }
+            free(current);
+            printf("Product removed successfully.\n");
+            printFileTxt(table);
+            return;
+        }
+        prev = current;
+        current = current->next;
+    }
+
+    printf("Product not found.\n");
+}
+
+void editInput(List table[]) {
+    int key;
+    Node* foundItem;
+
+    printf("Enter the barcode of the product you want to edit: ");
+    scanf("%d", &key);
+    getchar();
+
+    foundItem = search(table, key);
+
+    if (foundItem != NULL) {
+        printf("Editing product with barcode %d:\n", key);
+
+        printf("Enter new product name: ");
+        fgets(foundItem->input.productName, 50, stdin);
+        foundItem->input.productName[strcspn(foundItem->input.productName, "\n")] = '\0';
+
+        printf("Enter new amount: ");
+        while (scanf("%d", &foundItem->input.amount) != 1) {
+            printf("Error: Please, enter an integer value for the amount!\n:");
+            while (getchar() != '\n');
+        }
+        while (getchar() != '\n');
+
+        printf("Product updated successfully!\n");
+        printFileTxt(table);
     } else {
         printf("Product not found.\n");
     }
