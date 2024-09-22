@@ -31,7 +31,12 @@ void menuStock(List table[]) {
             case 2: {
                 int barcode;
                 printf("Enter barcode to search: ");
-                scanf("%d", &barcode);
+                while (scanf("%d", &barcode) != 1) {
+                    printf("Error! Please, enter an integer value in this field.\n:");
+                    while (getchar() != '\n');
+                }
+                while (getchar() != '\n');
+
                 Node* foundItem = search(table, barcode);
                 if (foundItem) {
                     printf("Product found: %s, Amount: %d\n", foundItem->input.productName, foundItem->input.amount);

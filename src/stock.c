@@ -22,7 +22,7 @@ void insertInputs(List table[]) {
 
     printf("Enter barcode: ");
     while (scanf("%d", &newInput.barcode) != 1) {
-        printf("Error: Please, enter an integer value for the barcode!\n:");
+        printf("Error! Please, enter an integer value for the barcode.\n:");
         while (getchar() != '\n');
     }
     while (getchar() != '\n');
@@ -39,7 +39,7 @@ void insertInputs(List table[]) {
 
     printf("Enter amount: ");
     while (scanf("%d", &newInput.amount) != 1) {
-        printf("Error: Please, enter an integer value for the amount!\n:");
+        printf("Error! Please, enter an integer value for the amount.\n:");
         while (getchar() != '\n');
     }
     while (getchar() != '\n');
@@ -52,9 +52,8 @@ void insertInputs(List table[]) {
     newNode->next = table[id];
     table[id] = newNode;
 
-    printf("Input inserted successfully!\n");
-    
     printFileTxt(table);
+    printf("Input inserted successfully!\n");
 }
 
 Node* search(List table[], int key) {
@@ -175,17 +174,25 @@ void decrement(List table[]) {
     printInputs(table);
 
     printf("Enter the barcode of the input you want: ");
-    scanf("%d", &key);
-    getchar();
+    while (scanf("%d", &key) != 1) {
+        printf("Error! Please, enter an integer value in this field.\n:");
+        while (getchar() != '\n');
+    }
+    while (getchar() != '\n');
 
     foundItem = search(table, key);
 
     if (foundItem != NULL) {
         printf("Enter the quantity you want: ");
-        scanf("%d", &quantity);
+        while (scanf("%d", &quantity) != 1) {
+            printf("Error! Please, enter an integer value in this field.\n:");
+            while (getchar() != '\n');
+        }
+        while (getchar() != '\n');
 
         if (foundItem->input.amount >= quantity) {
             foundItem->input.amount -= quantity;
+            printFileTxt(table);
             printf("Decrement successful. New amount: %d\n", foundItem->input.amount);
         } else {
             printf("Error: Not enough quantity to decrement.\n");
@@ -203,15 +210,24 @@ void increment(List table[]) {
     printInputs(table);
 
     printf("Enter the barcode of the input you want: ");
-    scanf("%d", &key);
-    getchar();
+    while (scanf("%d", &key) != 1) {
+        printf("Error! Please, enter an integer value in this field.\n:");
+        while (getchar() != '\n');
+    }
+    while (getchar() != '\n');
 
     foundItem = search(table, key);
 
     if (foundItem != NULL) {
         printf("Enter the quantity you want to add: ");
-        scanf("%d", &quantity);
+        while (scanf("%d", &quantity) != 1) {
+            printf("Error! Please, enter an integer value in this field.\n:");
+            while (getchar() != '\n');
+        }
+        while (getchar() != '\n');
+
         foundItem->input.amount += quantity;
+        printFileTxt(table);
         printf("Increment successful. New amount: %d\n", foundItem->input.amount);
     } else {
         printf("Product not found.\n");
@@ -224,8 +240,11 @@ void removeInput(List table[]) {
     Node *current, *prev = NULL;
 
     printf("Enter the barcode of the product you want to remove: ");
-    scanf("%d", &key);
-    getchar();
+    while (scanf("%d", &key) != 1) {
+        printf("Error! Please, enter an integer value in this field.\n:");
+        while (getchar() != '\n');
+    }
+    while (getchar() != '\n');
 
     id = hashFunction(key);
     current = table[id];
@@ -238,8 +257,8 @@ void removeInput(List table[]) {
                 prev->next = current->next;
             }
             free(current);
-            printf("Product removed successfully.\n");
             printFileTxt(table);
+            printf("Product removed successfully.\n");
             return;
         }
         prev = current;
@@ -254,8 +273,11 @@ void editInput(List table[]) {
     Node* foundItem;
 
     printf("Enter the barcode of the product you want to edit: ");
-    scanf("%d", &key);
-    getchar();
+    while (scanf("%d", &key) != 1) {
+        printf("Error! Please, enter an integer value in this field.\n:");
+        while (getchar() != '\n');
+    }
+    while (getchar() != '\n');
 
     foundItem = search(table, key);
 
@@ -273,8 +295,8 @@ void editInput(List table[]) {
         }
         while (getchar() != '\n');
 
-        printf("Product updated successfully!\n");
         printFileTxt(table);
+        printf("Product updated successfully!\n");
     } else {
         printf("Product not found.\n");
     }
