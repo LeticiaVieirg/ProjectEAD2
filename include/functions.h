@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../include/stock.h"
+#include "../include/patient.h"
 
 
 void menuStock(List table[]);

@@ -4,6 +4,7 @@ int main(void) {
     List table[SIZE];  // Tabela de estoque
     initializeTable(table);  // Inicializa a tabela com NULL
     loadFromFile(table);
+
     int option;
 
     do {

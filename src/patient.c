@@ -4,8 +4,8 @@ void formatCPF(char *formattedCPF, const char *cpf) {
     sprintf(formattedCPF, "%.3s.%.3s.%.3s-%.2s", cpf, cpf + 3, cpf + 6, cpf + 9);
 }
 
-Node *initializeNode(Patient newPatient) {
-    Node *newNode = (Node *) malloc(sizeof(Node));
+NodePatient *initializeNode(Patient newPatient) {
+    NodePatient *newNode = (NodePatient *) malloc(sizeof(NodePatient));
     if (newNode == NULL) {
         printf("Error allocating memory!\n");
         return NULL;
@@ -24,7 +24,7 @@ void cleanCPF(char *cpf) {
     }
 }
 
-Node *insertNode(Node *root, Patient newPatient) {
+NodePatient *insertNode(NodePatient *root, Patient newPatient) {
     if (root == NULL) {
         return initializeNode(newPatient);
     }
@@ -41,7 +41,7 @@ Node *insertNode(Node *root, Patient newPatient) {
     return root;
 }
 
-Node *searchNode(Node *root, const char *cpf) {
+NodePatient *searchNode(NodePatient *root, const char *cpf) {
     if (root == NULL || strcmp(root->patient.cpf, cpf) == 0) {
         return root;
     }
@@ -53,8 +53,8 @@ Node *searchNode(Node *root, const char *cpf) {
     }
 }
 
-void searchPatientByCPF(Node *root, const char *cpf) {
-    Node *node = searchNode(root, cpf);
+void searchPatientByCPF(NodePatient *root, const char *cpf) {
+    NodePatient *node = searchNode(root, cpf);
     if (node == NULL) {
         printf("Patient with CPF %s not found.\n", cpf);
         return;
@@ -67,8 +67,8 @@ void searchPatientByCPF(Node *root, const char *cpf) {
     printf("Age: %d\n", node->patient.age);
 }
 
-void editPatient(Node *root, const char *cpf) {
-    Node *node = searchNode(root, cpf);
+void editPatient(NodePatient *root, const char *cpf) {
+    NodePatient *node = searchNode(root, cpf);
     if (node == NULL) {
         printf("Patient with CPF %s not found.\n", cpf);
         return;
@@ -88,7 +88,7 @@ void editPatient(Node *root, const char *cpf) {
     printf("Patient updated successfully.\n");
 }
 
-void printInOrder(Node *root) {
+void printInOrder(NodePatient *root) {
     if (root != NULL) {
         printInOrder(root->left);
         char formattedCPF[15];
@@ -101,7 +101,7 @@ void printInOrder(Node *root) {
     }
 }
 
-void freeTree(Node *root) {
+void freeTree(NodePatient *root) {
     if (root != NULL) {
         freeTree(root->left);
         freeTree(root->right);
@@ -109,7 +109,7 @@ void freeTree(Node *root) {
     }
 }
 
-void writePatient(FILE *file, Node *node) {
+void writePatient(FILE *file, NodePatient *node) {
     if (node != NULL) {
         writePatient(file, node->left);
         fprintf(file, "%s\n%s\n%d\n", node->patient.name, node->patient.cpf, node->patient.age);
@@ -117,8 +117,8 @@ void writePatient(FILE *file, Node *node) {
     }
 }
 
-void savePatients(Node *root, const char *filename) {
-    FILE *file = fopen(filename, "w");
+void savePatients(NodePatient *root, const char *filename) {
+    FILE *file = fopen("patientBank.txt", "w");
     if (file == NULL) {
         printf("Error opening file %s for writing.\n", filename);
         return;
@@ -128,8 +128,8 @@ void savePatients(Node *root, const char *filename) {
     fclose(file);
 }
 
-void loadPatients(Node **root, const char *filename) {
-    FILE *file = fopen(filename, "r");
+void loadPatients(NodePatient **root, const char *filename) {
+    FILE *file = fopen("patientBank.txt", "r");
     if (file == NULL) {
         printf("Error opening file %s for reading.\n", filename);
         return;
@@ -149,7 +149,7 @@ void loadPatients(Node **root, const char *filename) {
 //     int option;
 //     Patient p;
 //     char cpf[12];  // CPF length is 11 + 1 for the null terminator
-//     const char *filename = "PatientBank.txt";
+//     const char *filename = "patientBank.txt";
 
 //     // Load patients from file
 //     loadPatients(&root, filename);

@@ -67,6 +67,14 @@ void menuStock(List table[]) {
 }
 
 void menuPatient(){
+    Node *root = NULL;
+    int option;
+    Patient p;
+    char cpf[12];  // CPF length is 11 + 1 for the null terminator
+    const char *filename = "patientBank.txt";
+
+    // Load patients from file
+    loadPatients(&root, filename);
     int option;
 
     do {
@@ -88,13 +96,23 @@ void menuPatient(){
 
         switch(option) {
             case 1:
-                // Função para buscar paciente
+                // Buscar paciente por CPF
+                printf("Enter CPF of patient to search: ");
+                fgets(cpf, sizeof(cpf), stdin);
+                cleanCPF(cpf);
+                searchPatientByCPF(root, cpf);
                 break;
             case 2:
-                // Função para imprimir dados do paciente
+                // Editar paciente por CPF
+                printf("Enter CPF of patient to edit: ");
+                fgets(cpf, sizeof(cpf), stdin);
+                cleanCPF(cpf);
+                editPatient(root, cpf);
                 break;
             case 3:
-                // Função para editar dados do paciente
+                // Exibir todos os pacientes
+                printf("\n--- List of all patients ---\n");
+                printInOrder(root);
                 break;
             case 4:
                 printf("Returning to main menu...\n");
@@ -103,6 +121,9 @@ void menuPatient(){
                 printf("Invalid option.\n");
         }
     } while(option != 4);
+
+    savePatients(root, filename);
+    freeTree(root);
 }
 
 void menuConsultation(){

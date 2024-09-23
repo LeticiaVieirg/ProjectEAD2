@@ -14,42 +14,42 @@ typedef struct {
 } Patient;
 
 //Rename the struct for Patient
-typedef struct Node {
+typedef struct NodePatient {
     Patient patient;
-    struct Node *right;
-    struct Node *left;
-} Node;
+    struct NodePatient *right;
+    struct NodePatient *left;
+} NodePatient;
 
 //Function for 
 void formatCPF(char *formattedCPF, const char *cpf);
 
 //Function for initialize 
-Node *initializeNode(Patient newPatient);
+NodePatient *initializeNode(Patient newPatient);
 
 //
 void cleanCPF(char *cpf);
 
 //
-Node *insertNode(Node *root, Patient newPatient);
+NodePatient *insertNode(NodePatient *root, Patient newPatient);
 
 //
-Node *searchNode(Node *root, const char *cpf);
+NodePatient *searchNode(NodePatient *root, const char *cpf);
 
 //
-void searchPatientByCPF(Node *root, const char *cpf);
+void searchPatientByCPF(NodePatient *root, const char *cpf);
 
 //
-void editPatient(Node *root, const char *cpf);
+void editPatient(NodePatient *root, const char *cpf);
 
 //
-void printInOrder(Node *root);
+void printInOrder(NodePatient *root);
 
 //
-void freeTree(Node *root);
+void freeTree(NodePatient *root);
 
 //
-void savePatients(Node *root, const char *filename);
+void savePatients(NodePatient *root, const char *filename);
 
-void loadPatients(Node **root, const char *filename);
+void loadPatients(NodePatient **root, const char *filename);
 
 #endif
