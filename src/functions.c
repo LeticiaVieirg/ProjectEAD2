@@ -67,15 +67,12 @@ void menuStock(List table[]) {
 }
 
 void menuPatient(){
-    Node *root = NULL;
+    NodePatient *root = NULL;
+    const char *filename = "patients.dat";
     int option;
-    Patient p;
-    char cpf[12];  // CPF length is 11 + 1 for the null terminator
-    const char *filename = "patientBank.txt";
+    char cpf[12];
 
-    // Load patients from file
-    loadPatients(&root, filename);
-    int option;
+    loadPatients(&root); // Load patients
 
     do {
         printf("\n=======================================\n");
@@ -96,23 +93,17 @@ void menuPatient(){
 
         switch(option) {
             case 1:
-                // Buscar paciente por CPF
-                printf("Enter CPF of patient to search: ");
-                fgets(cpf, sizeof(cpf), stdin);
-                cleanCPF(cpf);
+                printf("Enter CPF: ");
+                scanf("%s", cpf);
                 searchPatientByCPF(root, cpf);
                 break;
             case 2:
-                // Editar paciente por CPF
-                printf("Enter CPF of patient to edit: ");
-                fgets(cpf, sizeof(cpf), stdin);
-                cleanCPF(cpf);
-                editPatient(root, cpf);
+                printInOrder(root);
                 break;
             case 3:
-                // Exibir todos os pacientes
-                printf("\n--- List of all patients ---\n");
-                printInOrder(root);
+            printf("Enter the CPF of the patient to edit: ");
+            scanf("%s", cpf);
+            editPatient(root, cpf);
                 break;
             case 4:
                 printf("Returning to main menu...\n");
@@ -122,7 +113,7 @@ void menuPatient(){
         }
     } while(option != 4);
 
-    savePatients(root, filename);
+    savePatients(root);
     freeTree(root);
 }
 

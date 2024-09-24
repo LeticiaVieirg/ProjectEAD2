@@ -1,227 +1,136 @@
 #include "../include/patient.h"
 
-void formatCPF(char *formattedCPF, const char *cpf) {
-    sprintf(formattedCPF, "%.3s.%.3s.%.3s-%.2s", cpf, cpf + 3, cpf + 6, cpf + 9);
-}
-
-NodePatient *initializeNode(Patient newPatient) {
-    NodePatient *newNode = (NodePatient *) malloc(sizeof(NodePatient));
-    if (newNode == NULL) {
-        printf("Error allocating memory!\n");
-        return NULL;
-    }
-
-    newNode->patient = newPatient;
+// Function to create a new patient node
+NodePatient* createNode(const char *name, const char *cpf, int age) {
+    NodePatient *newNode = malloc(sizeof(NodePatient));
+    strcpy(newNode->cpf, cpf);
+    strcpy(newNode->name, name);
+    newNode->age = age;
     newNode->left = newNode->right = NULL;
     return newNode;
 }
 
-void cleanCPF(char *cpf) {
-    cpf[strcspn(cpf, "\n")] = '\0';
-    if (strlen(cpf) != 11) {
-        printf("Invalid CPF. It must have 11 digits.\n");
-        cpf[0] = '\0'; 
-    }
-}
-
-NodePatient *insertNode(NodePatient *root, Patient newPatient) {
-    if (root == NULL) {
-        return initializeNode(newPatient);
-    }
-
-    int cmp = strcmp(root->patient.cpf, newPatient.cpf);
-    if (cmp > 0) {
-        root->left = insertNode(root->left, newPatient);
-    } else if (cmp < 0) {
-        root->right = insertNode(root->right, newPatient);
+// Function to insert a patient into the binary tree
+void insertPatient(NodePatient **root, const char *name, const char *cpf, int age) {
+    if (*root == NULL) {
+        *root = createNode(name, cpf, age);
+    } else if (strcmp(cpf, (*root)->cpf) < 0) {
+        insertPatient(&(*root)->left, name, cpf, age);
     } else {
-        printf("Patient with CPF %s already exists.\n", newPatient.cpf);
-    }
-
-    return root;
-}
-
-NodePatient *searchNode(NodePatient *root, const char *cpf) {
-    if (root == NULL || strcmp(root->patient.cpf, cpf) == 0) {
-        return root;
-    }
-
-    if (strcmp(root->patient.cpf, cpf) > 0) {
-        return searchNode(root->left, cpf);
-    } else {
-        return searchNode(root->right, cpf);
+        insertPatient(&(*root)->right, name, cpf, age);
     }
 }
 
+// Function to load patients from a file
+void loadPatients(NodePatient **root) {
+    FILE *file = fopen("PatientBank.txt", "r");
+    if (!file) {
+        perror("Could not open file");
+        return;
+    }
+    
+    char name[100];
+    char cpf[12];
+    int age;
+    
+    while (fscanf(file, " %[^\n]s", name) != EOF) {  // Read the name
+        fscanf(file, "%s", cpf);  // Read the CPF
+        fscanf(file, "%d", &age); // Read the age
+        insertPatient(root, name, cpf, age);
+    }
+    fclose(file);
+}
+
+// Function to search for a patient by CPF
 void searchPatientByCPF(NodePatient *root, const char *cpf) {
-    NodePatient *node = searchNode(root, cpf);
-    if (node == NULL) {
-        printf("Patient with CPF %s not found.\n", cpf);
+    if (root == NULL) {
+        printf("Patient not found.\n");
         return;
     }
-
-    char formattedCPF[15];
-    formatCPF(formattedCPF, node->patient.cpf);
-    printf("Name: %s\n", node->patient.name);
-    printf("CPF: %s\n", formattedCPF);
-    printf("Age: %d\n", node->patient.age);
+    if (strcmp(cpf, root->cpf) == 0) {
+        printf("Patient found: Name = %s, CPF = %s, Age = %d\n", root->name, root->cpf, root->age);
+    } else if (strcmp(cpf, root->cpf) < 0) {
+        searchPatientByCPF(root->left, cpf);
+    } else {
+        searchPatientByCPF(root->right, cpf);
+    }
 }
 
+// Function to edit patient details
 void editPatient(NodePatient *root, const char *cpf) {
-    NodePatient *node = searchNode(root, cpf);
-    if (node == NULL) {
+    if (root == NULL) {
         printf("Patient with CPF %s not found.\n", cpf);
         return;
     }
 
-    printf("Editing patient with CPF %s\n", cpf);
-    getchar();
+    // If we find the patient
+    if (strcmp(cpf, root->cpf) == 0) {
+        // Ask user for new details
+        char newName[100];
+        int newAge;
+        getchar();
+        
+        printf("Enter new name (or press Enter to keep current): ");
+        fgets(newName, sizeof(newName), stdin);
+        
+        // If the user provides a new name, update it
+        if (newName[0] != '\n') {
+            newName[strcspn(newName, "\n")] = 0;  // Remove the trailing newline character
+            strcpy(root->name, newName);          // Update the name
+        }
+        
+        // Ask for new age
+        printf("Enter new age (or press 0 to keep current): ");
+        scanf("%d", &newAge);
+        
+        // Update the age if a valid new age is provided
+        if (newAge > 0) {
+            root->age = newAge;
+        }
 
-    printf("Enter new name: ");
-    fgets(node->patient.name, sizeof(node->patient.name), stdin);
-    node->patient.name[strcspn(node->patient.name, "\n")] = '\0';
-
-    printf("Enter new age: ");
-    scanf("%d", &node->patient.age);
-    getchar();
-
-    printf("Patient updated successfully.\n");
+        printf("Patient details updated: Name = %s, CPF = %s, Age = %d\n", root->name, root->cpf, root->age);
+    }
+    else if (strcmp(cpf, root->cpf) < 0) {
+        editPatient(root->left, cpf);
+    }
+    else {
+        editPatient(root->right, cpf);
+    }
 }
 
+// Function to print all patients in order
 void printInOrder(NodePatient *root) {
-    if (root != NULL) {
+    if (root) {
         printInOrder(root->left);
-        char formattedCPF[15];
-        formatCPF(formattedCPF, root->patient.cpf);
-        printf("Name: %s\n", root->patient.name);
-        printf("CPF: %s\n", formattedCPF);
-        printf("Age: %d\n", root->patient.age);
-        printf("\n");
+        printf("Name: %s, CPF: %s, Age: %d\n", root->name, root->cpf, root->age);
         printInOrder(root->right);
     }
 }
 
+// Function to save patients to a file
+void savePatients(NodePatient *root) {
+    FILE *file = fopen("PatientBank.txt", "a");
+    if (!file) {
+        perror("Could not open file");
+        return;
+    }
+
+    // Use in-order traversal to write all patients
+    if (root) {
+        savePatients(root->left); // Save left subtree first
+        fprintf(file, "%s\n%s\n%d\n", root->name, root->cpf, root->age); // Save name, CPF, and age
+        savePatients(root->right); // Save right subtree
+    }
+    
+    fclose(file);
+}
+
+// Function to free the memory allocated for the tree
 void freeTree(NodePatient *root) {
-    if (root != NULL) {
+    if (root) {
         freeTree(root->left);
         freeTree(root->right);
         free(root);
     }
 }
 
-void writePatient(FILE *file, NodePatient *node) {
-    if (node != NULL) {
-        writePatient(file, node->left);
-        fprintf(file, "%s\n%s\n%d\n", node->patient.name, node->patient.cpf, node->patient.age);
-        writePatient(file, node->right);
-    }
-}
-
-void savePatients(NodePatient *root, const char *filename) {
-    FILE *file = fopen("patientBank.txt", "w");
-    if (file == NULL) {
-        printf("Error opening file %s for writing.\n", filename);
-        return;
-    }
-
-    writePatient(file, root);
-    fclose(file);
-}
-
-void loadPatients(NodePatient **root, const char *filename) {
-    FILE *file = fopen("patientBank.txt", "r");
-    if (file == NULL) {
-        printf("Error opening file %s for reading.\n", filename);
-        return;
-    }
-
-    Patient p;
-    while (fscanf(file, "%[^\n]\n%[^\n]\n%d\n", p.name, p.cpf, &p.age) == 3) {
-        *root = insertNode(*root, p);
-    }
-
-    fclose(file);
-}
-
-// // Função principal
-// int main() {
-//     Node *root = NULL;
-//     int option;
-//     Patient p;
-//     char cpf[12];  // CPF length is 11 + 1 for the null terminator
-//     const char *filename = "patientBank.txt";
-
-//     // Load patients from file
-//     loadPatients(&root, filename);
-
-//     do {
-//         printf("\n--- Patient Management System ---\n");
-//         printf("1. Register a new patient\n");
-//         printf("2. Search for a patient by CPF\n");
-//         printf("3. Edit a patient by CPF\n");
-//         printf("4. Print all patients\n");
-//         printf("5. Save and exit\n");
-//         printf("Select an option: ");
-//         scanf("%d", &option);
-//         getchar(); // Remove newline character from buffer
-
-//         switch (option) {
-//             case 1:
-//                 // Cadastro de pacientes
-//                 printf("Enter patient name: ");
-//                 fgets(p.name, sizeof(p.name), stdin);
-//                 p.name[strcspn(p.name, "\n")] = '\0'; // Remove newline
-
-//                 printf("Enter patient CPF (only digits): ");
-//                 fgets(p.cpf, sizeof(p.cpf), stdin);
-//                 cleanCPF(p.cpf);
-//                 if (strlen(p.cpf) != 11) {
-//                     printf("Invalid CPF. Patient not registered.\n");
-//                     break;
-//                 }
-
-//                 printf("Enter patient age: ");
-//                 scanf("%d", &p.age);
-//                 getchar(); // Remove newline character from buffer
-
-//                 root = insertNode(root, p);
-//                 printf("Patient registered successfully.\n");
-//                 break;
-
-//             case 2:
-//                 // Buscar paciente por CPF
-//                 printf("Enter CPF of patient to search: ");
-//                 fgets(cpf, sizeof(cpf), stdin);
-//                 cleanCPF(cpf);
-//                 searchPatientByCPF(root, cpf);
-//                 break;
-
-//             case 3:
-//                 // Editar paciente por CPF
-//                 printf("Enter CPF of patient to edit: ");
-//                 fgets(cpf, sizeof(cpf), stdin);
-//                 cleanCPF(cpf);
-//                 editPatient(root, cpf);
-//                 break;
-
-//             case 4:
-//                 // Exibir todos os pacientes
-//                 printf("\n--- List of all patients ---\n");
-//                 printInOrder(root);
-//                 break;
-
-//             case 5:
-//                 // Salvar e sair
-//                 savePatients(root, filename);
-//                 freeTree(root);
-//                 printf("Data saved to %s. Exiting...\n", filename);
-//                 break;
-
-//             default:
-//                 printf("Invalid option. Please try again.\n");
-//                 break;
-//         }
-//     } while (option != 5);
-
-//     return 0;
-// }

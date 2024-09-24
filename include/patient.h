@@ -7,49 +7,19 @@
 #define PATIENT_H
 
 //Rename the struct for Patient
-typedef struct {
+typedef struct NodePatient{
     char name[100]; 
-    char cpf[13];  
+    char cpf[12];  
     int age;
-} Patient;
-
-//Rename the struct for Patient
-typedef struct NodePatient {
-    Patient patient;
-    struct NodePatient *right;
     struct NodePatient *left;
+    struct NodePatient *right;
 } NodePatient;
 
-//Function for 
-void formatCPF(char *formattedCPF, const char *cpf);
-
-//Function for initialize 
-NodePatient *initializeNode(Patient newPatient);
-
-//
-void cleanCPF(char *cpf);
-
-//
-NodePatient *insertNode(NodePatient *root, Patient newPatient);
-
-//
-NodePatient *searchNode(NodePatient *root, const char *cpf);
-
-//
+NodePatient* createNode(const char *name, const char *cpf, int age);
+void loadPatients(NodePatient **root);
 void searchPatientByCPF(NodePatient *root, const char *cpf);
-
-//
 void editPatient(NodePatient *root, const char *cpf);
-
-//
 void printInOrder(NodePatient *root);
-
-//
+void savePatients(NodePatient *root);
 void freeTree(NodePatient *root);
-
-//
-void savePatients(NodePatient *root, const char *filename);
-
-void loadPatients(NodePatient **root, const char *filename);
-
 #endif
