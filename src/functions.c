@@ -112,7 +112,8 @@ void menuPatient(){
                 printf("Invalid option.\n");
         }
     } while(option != 4);
-
+    FILE *file = fopen("PatientBank.txt", "w");
+    fclose(file);
     savePatients(root);
     freeTree(root);
 }
