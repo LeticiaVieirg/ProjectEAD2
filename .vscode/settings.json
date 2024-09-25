@@ -3,6 +3,7 @@
         "stock.h": "c",
         "dental_appointment.h": "c",
         "functions.h": "c",
-        "patient.h": "c"
+        "patient.h": "c",
+        "string.h": "c"
     }
 }

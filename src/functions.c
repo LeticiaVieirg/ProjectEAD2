@@ -71,6 +71,8 @@ void menuPatient(){
     const char *filename = "patients.dat";
     int option;
     char cpf[12];
+    char name[100];
+    int age;
 
     loadPatients(&root); // Load patients
 
@@ -81,11 +83,12 @@ void menuPatient(){
         printf("[1] Search\n");
         printf("[2] Print patient\n");
         printf("[3] Edit patient\n");
-        printf("[4] Return to main menu\n");
+        printf("[4] Add patient\n");
+        printf("[5] Return to main menu\n");
         printf("=========================================\n");
         printf("Enter your choice: ");
         
-        if (scanf("%d", &option) != 1 || option < 1 || option > 4) {
+        if (scanf("%d", &option) != 1 || option < 1 || option > 5) {
             printf("Invalid option. Please enter a number between 1 and 4.\n");
             clear_buffer();
             option = -1;
@@ -106,12 +109,24 @@ void menuPatient(){
             editPatient(root, cpf);
                 break;
             case 4:
+                printf("Enter the patient's name: ");
+                scanf(" %[^\n]", name);  // Lê o nome completo (inclui espaços)
+                printf("Enter the patient's CPF: ");
+                scanf("%s", cpf);
+                printf("Enter the patient's age: ");
+                scanf("%d", &age);
+
+                insertPatient(&root, name, cpf, age);  // Chama a função de inserção
+                printf("Patient inserted successfully!\n");
+                printf("Returning to main menu...\n");
+                break;
+            case 5:
                 printf("Returning to main menu...\n");
                 break;
             default:
                 printf("Invalid option.\n");
         }
-    } while(option != 4);
+    } while(option != 5);
     FILE *file = fopen("PatientBank.txt", "w");
     fclose(file);
     savePatients(root);

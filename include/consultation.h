@@ -35,7 +35,7 @@ void heapBelow(Heap *heap, int index);
 Patient removeHeap(Heap *heap);
 
 //Fries the memory heap allocated for the patient array and the heap structure itself
-void freeHeap(Heap *heap) {
+void freeHeap(Heap *heap);
 
 //Print the patient information for each elements in the heap
-void displayHeap(Heap *heap) {
+void displayHeap(Heap *heap);

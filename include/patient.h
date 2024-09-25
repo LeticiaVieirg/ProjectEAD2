@@ -16,6 +16,7 @@ typedef struct NodePatient{
 } NodePatient;
 
 NodePatient* createNode(const char *name, const char *cpf, int age);
+void insertPatient(NodePatient **root, const char *name, const char *cpf, int age);
 void loadPatients(NodePatient **root);
 void searchPatientByCPF(NodePatient *root, const char *cpf);
 void editPatient(NodePatient *root, const char *cpf);
