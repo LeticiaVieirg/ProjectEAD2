@@ -1,3 +1,5 @@
+#ifndef CONSULTAION_H
+#define CONSULTAION_H
 //declaring the libraries
 #include "../include/stock.h"
 #include "../include/patient.h"
@@ -26,7 +28,7 @@ void swap(Patient *patientOne, Patient *patientTwo);
 void heapUp(Heap *heap, int index);
 
 //Prompts the user for patient information, creates a new patient object, inserts it into the heap, and calls heapUp
-void insertIntoHeap(Heap *heap);
+void insertIntoHeap(Heap *heap, NodePatient **root, List table[]);
 
 //Compares the element at the given index with its children and swaps it with the larger child
 void heapBelow(Heap *heap, int index);
@@ -39,3 +41,4 @@ void freeHeap(Heap *heap);
 
 //Print the patient information for each elements in the heap
 void displayHeap(Heap *heap);
+#endif 

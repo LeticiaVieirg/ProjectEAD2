@@ -1,3 +1,5 @@
+#ifndef STOCK_H
+#define STOCK_H
 //declaring the libraries
 #include <stdio.h>
 #include <string.h>
@@ -19,6 +21,10 @@ typedef struct node{
     struct node *next;
 } Node;
 
+typedef struct {
+    char name[100]; // Ajuste o tamanho conforme necessário
+    int quantity;
+} DecrementResult;
 
 typedef Node* List;
 
@@ -45,7 +51,7 @@ void printFileTxt(List table[]);
 List *loadFromFile(List table[]);
 
 //Function that reduces the amount of inputs
-void decrement(List table[]);
+DecrementResult* decrement(List table[], int* totalDecremented);
 
 //Function that increases the amount of inputs
 void increment(List table[]);
@@ -53,3 +59,4 @@ void increment(List table[]);
 void removeInput(List table[]);
 
 void editInput(List table[]);
+#endif // STOCK_H

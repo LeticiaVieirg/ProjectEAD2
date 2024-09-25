@@ -25,29 +25,42 @@ void heapUp(Heap *heap, int index) {
     }
 }
 
-void insertIntoHeap(Heap *heap) {
+void insertIntoHeap(Heap *heap, NodePatient **root, List table[]) {
     if (heap->size == heap->capacity) {
         printf("Full heap!\n");
         return;
     }
 
     Patient newPatient;
+    char CPF[11];
+    char name[100];
+    int age;
 
-    printf("Enter the patient's age: ");
-    scanf("%d", &newPatient.age);
+    printf("Enter the patient's CPF: ");
+    scanf("%s", CPF);
 
-    printf("Inform the procedure to be carried out: ");
-    getchar();
-    fgets(newPatient.description, 50, stdin);
-    newPatient.description[strcspn(newPatient.description, "\n")] = '\0'; 
-
-    decrement(table);
+    NodePatient *foundPatient = returnSearchPatientByCPF(*root, CPF);
+    if (foundPatient == NULL) {
+        printf("Patient not found.\n");
+    } else {
+        printf("Patient found:\n");
+        printf("Name: %s, age: %d, CPF: %s\n", foundPatient->name, foundPatient->age, foundPatient->cpf);
+        
+        printf("Inform the procedure to be carried out: \n");
+        getchar(); // Limpa o buffer antes de ler a descrição
+        fgets(newPatient.description, 50, stdin);
+        newPatient.description[strcspn(newPatient.description, "\n")] = '\0'; 
+        printf("Provide the necessary inputs for the procedure:\n");
+        int totalDecremented = 0;
+        DecrementResult* results = decrement(table, &totalDecremented);
+    }
 
     // Insere o novo paciente na heap
     heap->Patient[heap->size] = newPatient;
-    heapUp(heap, heap->size);  
+    heapUp(heap, heap->size);
     heap->size++;
 }
+
 
 void heapBelow(Heap *heap, int index) {
     int bigger = index;

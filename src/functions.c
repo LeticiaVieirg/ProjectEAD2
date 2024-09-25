@@ -68,9 +68,8 @@ void menuStock(List table[]) {
 
 void menuPatient(){
     NodePatient *root = NULL;
-    const char *filename = "patients.dat";
     int option;
-    char cpf[12];
+    char cpf[11];
     char name[100];
     int age;
 
@@ -117,8 +116,6 @@ void menuPatient(){
                 scanf("%d", &age);
 
                 insertPatient(&root, name, cpf, age);  // Chama a função de inserção
-                printf("Patient inserted successfully!\n");
-                printf("Returning to main menu...\n");
                 break;
             case 5:
                 printf("Returning to main menu...\n");
@@ -133,8 +130,12 @@ void menuPatient(){
     freeTree(root);
 }
 
-void menuConsultation(){
+void menuConsultation(List table[]){
+    NodePatient *root = NULL;
+    Heap *heap = createHeap(10);
+    loadPatients(&root); // Load patients
     int option;
+    char CPF[11];
 
     do {
         printf("\n=======================================\n");
@@ -160,10 +161,9 @@ void menuConsultation(){
                 // Função para buscar consulta
                 break;
             case 2:
-                // Função para imprimir dados da consulta
                 break;
             case 3:
-                // Função para registrar nova consulta
+                insertIntoHeap(heap, &root, table);  // Correção aqui
                 break;
             case 4:
                 // Função para concluir consulta

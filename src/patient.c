@@ -56,6 +56,20 @@ void searchPatientByCPF(NodePatient *root, const char *cpf) {
     }
 }
 
+NodePatient* returnSearchPatientByCPF(NodePatient *root, const char *cpf) {
+    if (root == NULL) {
+        return NULL; // Patient not found
+    }
+
+    if (strcmp(cpf, root->cpf) == 0) {
+        return root; // Patient found
+    } else if (strcmp(cpf, root->cpf) < 0) {
+        return returnSearchPatientByCPF(root->left, cpf);
+    } else {
+        return returnSearchPatientByCPF(root->right, cpf);
+    }
+}
+
 // Function to edit patient details
 void editPatient(NodePatient *root, const char *cpf) {
     if (root == NULL) {

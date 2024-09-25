@@ -166,40 +166,60 @@ List* loadFromFile(List table[]) {
     return table;
 }
 
-void decrement(List table[]) {
+DecrementResult* decrement(List table[], int* totalDecremented) {
     int key, quantity;
     Node* foundItem;
+    DecrementResult* results = malloc(10 * sizeof(DecrementResult)); // Inicializa um array dinâmico
+    *totalDecremented = 0; // Inicializa o contador de produtos decrementados
 
-    printf("Registered products:\n");
-    printInputs(table);
+    while (1) {
+        printf("Registered products:\n");
+        printInputs(table);
 
-    printf("Enter the barcode of the input you want: ");
-    while (scanf("%d", &key) != 1) {
-        printf("Error! Please, enter an integer value in this field.\n:");
-        while (getchar() != '\n');
-    }
-    while (getchar() != '\n');
-
-    foundItem = search(table, key);
-
-    if (foundItem != NULL) {
-        printf("Enter the quantity you want: ");
-        while (scanf("%d", &quantity) != 1) {
+        printf("Enter the barcode of the input you want: ");
+        while (scanf("%d", &key) != 1) {
             printf("Error! Please, enter an integer value in this field.\n:");
             while (getchar() != '\n');
         }
         while (getchar() != '\n');
 
-        if (foundItem->input.amount >= quantity) {
-            foundItem->input.amount -= quantity;
-            printFileTxt(table);
-            printf("Decrement successful. New amount: %d\n", foundItem->input.amount);
+        foundItem = search(table, key);
+
+        if (foundItem != NULL) {
+            printf("Enter the quantity you want: ");
+            while (scanf("%d", &quantity) != 1) {
+                printf("Error! Please, enter an integer value in this field.\n:");
+                while (getchar() != '\n');
+            }
+            while (getchar() != '\n');
+
+            if (foundItem->input.amount >= quantity) {
+                foundItem->input.amount -= quantity;
+
+                // Atualiza o resultado a ser retornado
+                strcpy(results[*totalDecremented].name, foundItem->input.productName);
+                results[*totalDecremented].quantity = quantity;
+                (*totalDecremented)++; // Incrementa o contador
+
+                printFileTxt(table);
+                printf("Decrement successful. New amount: %d\n", foundItem->input.amount);
+            } else {
+                printf("Error: Not enough quantity to decrement.\n");
+            }
         } else {
-            printf("Error: Not enough quantity to decrement.\n");
+            printf("Product not found.\n");
         }
-    } else {
-        printf("Product not found.\n");
+
+        // Pergunta se o usuário deseja decrementar outro produto
+        char choice;
+        printf("Do you want to decrement another product? (y/n): ");
+        scanf(" %c", &choice);
+        if (choice != 'y') {
+            break; // Sai do loop se não quiser mais
+        }
     }
+
+    return results; // Retorna o array de resultados
 }
 
 void increment(List table[]) {

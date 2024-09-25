@@ -5,10 +5,11 @@
 #include <string.h>
 #include "../include/stock.h"
 #include "../include/patient.h"
+#include "../include/consultation.h"
 
 
 void menuStock(List table[]);
 void menuPatient();
-void menuConsultation();
+void menuConsultation(List table[]);
 void clear_buffer();
 #endif /* FUNCOES_H */

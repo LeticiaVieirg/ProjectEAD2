@@ -4,6 +4,7 @@
         "dental_appointment.h": "c",
         "functions.h": "c",
         "patient.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "stdio.h": "c"
     }
 }

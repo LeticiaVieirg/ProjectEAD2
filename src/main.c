@@ -32,7 +32,7 @@ int main(void) {
                 menuPatient();
                 break;
             case 3:
-                menuConsultation();
+                menuConsultation(table);
                 break;
             case 4:
                 printf("Exiting...\n");
