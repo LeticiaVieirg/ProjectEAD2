@@ -45,4 +45,5 @@ void freeHeap(Heap *heap);
 void displayHeap(Heap *heap);
 
 void searchByCPF(Heap *heap, const char *CPF);
+void writeToFile(Heap *heap);
 #endif 

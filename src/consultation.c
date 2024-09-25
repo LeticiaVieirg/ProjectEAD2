@@ -137,3 +137,26 @@ void displayHeap(Heap *heap) {
         printf("Input: %s, amount: %d\n", heap->Patient[i].dataInputs.productName, heap->Patient[i].dataInputs.amount);
     }
 }
+
+void writeToFile(Heap *heap) {
+    // Abre o arquivo para escrita (cria ou substitui o conteúdo)
+    FILE *file = fopen("consultationBakn.txt", "w");
+    if (file == NULL) {
+        printf("Error opening file!\n");
+        return;
+    }
+
+    // Percorre a heap e grava os dados de cada paciente
+    for (int i = 0; i < heap->size; i++) {
+        // Escreve os dados no arquivo de acordo com o formato especificado
+        fprintf(file, "%s\n", heap->Patient[i].dataPataient.name);               // Nome
+        fprintf(file, "%s %d\n", heap->Patient[i].dataPataient.cpf,               // CPF
+                                 heap->Patient[i].dataPataient.age);              // Idade
+        fprintf(file, "%s\n", heap->Patient[i].description);                      // Descrição do procedimento
+        fprintf(file, "%s %d\n\n", heap->Patient[i].dataInputs.productName,       // Produto necessário
+                                    heap->Patient[i].dataInputs.amount);          // Quantidade
+    }
+
+    fclose(file);  // Fecha o arquivo
+    printf("Data successfully written to file.\n");
+}

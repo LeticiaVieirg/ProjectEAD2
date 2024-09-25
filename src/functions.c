@@ -169,7 +169,8 @@ void menuConsultation(List table[]){
                 insertIntoHeap(heap, &root, table);  // Correção aqui
                 break;
             case 4:
-                // Função para concluir consulta
+                removeHeap(heap);
+                printf("Consultation carried out successfully!\n");
                 break;
             case 5:
                 // Função para editar dados da consulta
@@ -181,6 +182,8 @@ void menuConsultation(List table[]){
                 printf("Invalid option.\n");
         }
     } while(option != 6);
+
+    writeToFile(heap);
 }
 
 void clear_buffer() {
