@@ -137,6 +137,8 @@ void menuConsultation(List table[]){
     int option;
     char CPF[11];
 
+    loadFromFileHeap(heap);
+
     do {
         printf("\n=======================================\n");
         printf("            Consultation area            \n");
