@@ -33,8 +33,6 @@ void insertIntoHeap(Heap *heap, NodePatient **root, List table[]) {
 
     Patient newPatient;
     char CPF[11];
-    char name[100];
-    int age;
 
     printf("Enter the patient's CPF: ");
     scanf("%s", CPF);
@@ -44,15 +42,23 @@ void insertIntoHeap(Heap *heap, NodePatient **root, List table[]) {
         printf("Patient not found.\n");
     } else {
         printf("Patient found:\n");
-        printf("Name: %s, age: %d, CPF: %s\n", foundPatient->name, foundPatient->age, foundPatient->cpf);
-        
+        printf("Name: %s, Age: %d, CPF: %s\n", foundPatient->name, foundPatient->age, foundPatient->cpf);
+
+        // Preencher os campos do novo paciente
+        newPatient.dataPataient.age = foundPatient->age;
+        strcpy(newPatient.dataPataient.name, foundPatient->name);  // Copia o nome
+        strcpy(newPatient.dataPataient.cpf, foundPatient->cpf);    // Copia o CPF
+
         printf("Inform the procedure to be carried out: \n");
         getchar(); // Limpa o buffer antes de ler a descrição
-        fgets(newPatient.description, 50, stdin);
-        newPatient.description[strcspn(newPatient.description, "\n")] = '\0'; 
+        fgets(newPatient.description, sizeof(newPatient.description), stdin);
+        newPatient.description[strcspn(newPatient.description, "\n")] = '\0';
+
         printf("Provide the necessary inputs for the procedure:\n");
         int totalDecremented = 0;
         DecrementResult* results = decrement(table, &totalDecremented);
+        strcpy(newPatient.dataInputs.productName, results->name);
+        newPatient.dataInputs.amount = results->quantity;
     }
 
     // Insere o novo paciente na heap
@@ -60,7 +66,6 @@ void insertIntoHeap(Heap *heap, NodePatient **root, List table[]) {
     heapUp(heap, heap->size);
     heap->size++;
 }
-
 
 void heapBelow(Heap *heap, int index) {
     int bigger = index;
@@ -78,6 +83,26 @@ void heapBelow(Heap *heap, int index) {
     if (bigger != index) {
         swap(&heap->Patient[index], &heap->Patient[bigger]);
         heapBelow(heap, bigger);  
+    }
+}
+
+void searchByCPF(Heap *heap, const char *CPF) {
+    int found = 0;  // Flag to indicate if the patient is found
+    
+    for (int i = 0; i < heap->size; i++) {
+        if (strcmp(heap->Patient[i].dataPataient.cpf, CPF) == 0) {
+            printf("Patient found at position %d:\n", i + 1);
+            printf("Patient: %s\n", heap->Patient[i].dataPataient.name);
+            printf("CPF: %s, Age: %d\n", heap->Patient[i].dataPataient.cpf, heap->Patient[i].dataPataient.age);
+            printf("Description: %s\n", heap->Patient[i].description);
+            printf("Input: %s, Amount: %d\n", heap->Patient[i].dataInputs.productName, heap->Patient[i].dataInputs.amount);
+            found = 1;
+            break;  // Stop after finding the first match
+        }
+    }
+
+    if (!found) {
+        printf("Patient with CPF %s not found.\n", CPF);
     }
 }
 
@@ -106,45 +131,9 @@ void displayHeap(Heap *heap) {
     printf("Query List: \n");
     for (int i = 0; i < heap->size; i++) {
         printf("Position %d\n", i + 1);
-        printf("Patient: %d\n", heap->Patient[i].age);
+        printf("Patient: %s\n", heap->Patient[i].dataPataient.name);
+        printf("CPF: %s, Age: %d\n", heap->Patient[i].dataPataient.cpf, heap->Patient[i].dataPataient.age);
         printf("Description: %s\n", heap->Patient[i].description);
+        printf("Input: %s, amount: %d\n", heap->Patient[i].dataInputs.productName, heap->Patient[i].dataInputs.amount);
     }
 }
-
-// int main() {
-//     // Cria uma heap com capacidade para 10 pacientes
-//     Heap *heap = createHeap(10);
-
-//     insertInputs(table);
-
-//     char opcao;
-
-//     do {
-//         // Inserindo os pacientes diretamente via insertIntoHeap
-//         printf("\nCadastrando novo paciente...\n");
-//         insertIntoHeap(heap);
-
-//         // Pergunta se o usuário quer continuar
-//         printf("\nDeseja cadastrar mais um paciente? (S/N): ");
-//         scanf(" %c", &opcao);  // Note o espaço antes de %c para ignorar caracteres em branco
-
-//     } while (opcao == 'S' || opcao == 's');  // Continua enquanto o usuário digitar 'S' ou 's'
-
-//     // Exibe a heap após as inserções
-//     printf("\nHeap após inserções:\n");
-//     displayHeap(heap);
-
-//     // Remove a pessoa mais velha (a raiz da heap)
-//     printf("\nRemovendo a pessoa com maior idade...\n");
-//     Patient removido = removeHeap(heap);
-//     printf("Paciente removido: idade = %d, descrição = %s\n", removido.age, removido.description);
-
-//     // Exibe a heap após a remoção
-//     printf("\nHeap após a remoção:\n");
-//     displayHeap(heap);
-
-//     // Liberando a memória da heap
-//     freeHeap(heap);
-
-//     return 0;
-// }

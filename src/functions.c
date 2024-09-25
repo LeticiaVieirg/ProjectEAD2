@@ -158,9 +158,12 @@ void menuConsultation(List table[]){
 
         switch(option) {
             case 1:
-                // Função para buscar consulta
+                printf("Enter the CPF: ");
+                scanf("%s", CPF);
+                searchByCPF(heap, CPF);
                 break;
             case 2:
+                displayHeap(heap);
                 break;
             case 3:
                 insertIntoHeap(heap, &root, table);  // Correção aqui

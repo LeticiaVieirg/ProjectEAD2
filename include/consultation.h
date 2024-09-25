@@ -7,6 +7,8 @@
 //
 typedef struct {
     int age;
+    NodePatient dataPataient;
+    Inputs dataInputs;
     char description[50];
 } Patient;
 
@@ -41,4 +43,6 @@ void freeHeap(Heap *heap);
 
 //Print the patient information for each elements in the heap
 void displayHeap(Heap *heap);
+
+void searchByCPF(Heap *heap, const char *CPF);
 #endif 
