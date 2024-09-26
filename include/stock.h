@@ -53,10 +53,13 @@ List *loadFromFile(List table[]);
 //Function that reduces the amount of inputs
 DecrementResult* decrement(List table[], int* totalDecremented);
 
-//Function that increases the amount of inputs
+// Function that increases the amount of inputs
 void increment(List table[]);
 
+// Function that removes an input from the hash table
 void removeInput(List table[]);
 
+// Function that edits an existing input in the hash table
 void editInput(List table[]);
+
 #endif // STOCK_H

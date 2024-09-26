@@ -1,8 +1,8 @@
 #include "../include/functions.h"
 
 int main(void) {
-    List table[SIZE];  // Tabela de estoque
-    initializeTable(table);  // Inicializa a tabela com NULL
+    List table[SIZE];
+    initializeTable(table);
     loadFromFile(table);
 
     int option;

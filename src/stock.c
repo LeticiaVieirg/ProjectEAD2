@@ -169,8 +169,8 @@ List* loadFromFile(List table[]) {
 DecrementResult* decrement(List table[], int* totalDecremented) {
     int key, quantity;
     Node* foundItem;
-    DecrementResult* results = malloc(10 * sizeof(DecrementResult)); // Inicializa um array dinâmico
-    *totalDecremented = 0; // Inicializa o contador de produtos decrementados
+    DecrementResult* results = malloc(10 * sizeof(DecrementResult));
+    *totalDecremented = 0;
 
     while (1) {
         printf("Registered products:\n");
@@ -196,10 +196,10 @@ DecrementResult* decrement(List table[], int* totalDecremented) {
             if (foundItem->input.amount >= quantity) {
                 foundItem->input.amount -= quantity;
 
-                // Atualiza o resultado a ser retornado
+          
                 strcpy(results[*totalDecremented].name, foundItem->input.productName);
                 results[*totalDecremented].quantity = quantity;
-                (*totalDecremented)++; // Incrementa o contador
+                (*totalDecremented)++; 
 
                 printFileTxt(table);
                 printf("Decrement successful. New amount: %d\n", foundItem->input.amount);
@@ -210,16 +210,16 @@ DecrementResult* decrement(List table[], int* totalDecremented) {
             printf("Product not found.\n");
         }
 
-        // Pergunta se o usuário deseja decrementar outro produto
+        
         char choice;
         printf("Do you want to decrement another product? (y/n): ");
         scanf(" %c", &choice);
         if (choice != 'y') {
-            break; // Sai do loop se não quiser mais
+            break; 
         }
     }
 
-    return results; // Retorna o array de resultados
+    return results; 
 }
 
 void increment(List table[]) {

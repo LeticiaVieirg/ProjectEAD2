@@ -26,7 +26,7 @@ void menuStock(List table[]) {
 
         switch(option) {
             case 1:
-                insertInputs(table);  // Função para registrar item no estoque
+                insertInputs(table); 
                 break;
             case 2: {
                 int barcode;
@@ -46,16 +46,16 @@ void menuStock(List table[]) {
                 break;
             }
             case 3:
-                printInputs(table);  // Função para imprimir o estoque
+                printInputs(table); 
                 break;
             case 4: 
-                removeInput(table);  // Função para deletar um item do estoque
+                removeInput(table); 
                 break;
             case 5:
-                editInput(table);    // Função para editar um item do estoque
+                editInput(table);
                 break;
             case 6:
-                increment(table);    // Função para adicionar mais ao estoque
+                increment(table);
                 break;
             case 7:
                 printf("Returning to main menu...\n");
@@ -73,7 +73,7 @@ void menuPatient(){
     char name[100];
     int age;
 
-    loadPatients(&root); // Load patients
+    loadPatients(&root); 
 
     do {
         printf("\n=======================================\n");
@@ -109,13 +109,13 @@ void menuPatient(){
                 break;
             case 4:
                 printf("Enter the patient's name: ");
-                scanf(" %[^\n]", name);  // Lê o nome completo (inclui espaços)
+                scanf(" %[^\n]", name); 
                 printf("Enter the patient's CPF: ");
                 scanf("%s", cpf);
                 printf("Enter the patient's age: ");
                 scanf("%d", &age);
 
-                insertPatient(&root, name, cpf, age);  // Chama a função de inserção
+                insertPatient(&root, name, cpf, age);  
                 break;
             case 5:
                 printf("Returning to main menu...\n");
@@ -133,7 +133,7 @@ void menuPatient(){
 void menuConsultation(List table[]){
     NodePatient *root = NULL;
     Heap *heap = createHeap(10);
-    loadPatients(&root); // Load patients
+    loadPatients(&root); 
     int option;
     char CPF[11];
 
@@ -168,7 +168,7 @@ void menuConsultation(List table[]){
                 displayHeap(heap);
                 break;
             case 3:
-                insertIntoHeap(heap, &root, table);  // Correção aqui
+                insertIntoHeap(heap, &root, table); 
                 break;
             case 4:
                 removeHeap(heap);
@@ -192,5 +192,5 @@ void menuConsultation(List table[]){
 
 void clear_buffer() {
     int c;
-    while ((c = getchar()) != '\n' && c != EOF); // Limpa o buffer do teclado
+    while ((c = getchar()) != '\n' && c != EOF);
 }

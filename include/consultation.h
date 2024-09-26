@@ -44,8 +44,16 @@ void freeHeap(Heap *heap);
 //Print the patient information for each elements in the heap
 void displayHeap(Heap *heap);
 
+// Searches for a patient in the heap by CPF
 void searchByCPF(Heap *heap, const char *CPF);
+
+// Writes the patient data to a file
 void writeToFile(Heap *heap);
+
+// Loads the patient data from a file into the heap
 Heap* loadFromFileHeap(Heap *heap);
+
+// Edits a patient's consultation by CPF and updates the description and input data
 void editConsultationByCPF(Heap *heap, const char *CPF, List table[]);
+
 #endif 

@@ -53,13 +53,13 @@ void insertIntoHeap(Heap *heap, NodePatient **root, List table[]) {
         printf("Patient found:\n");
         printf("Name: %s, Age: %d, CPF: %s\n", foundPatient->name, foundPatient->age, foundPatient->cpf);
 
-        // Preencher os campos do novo paciente
-        newPatient.age = foundPatient->age; // Acesso correto à idade
-        newPatient.dataPataient = *foundPatient;  // Cópia do NodePatient
-        strcpy(newPatient.description, "");  // Inicializa a descrição como vazia
+        
+        newPatient.age = foundPatient->age; 
+        newPatient.dataPataient = *foundPatient;  
+        strcpy(newPatient.description, "");  
 
         printf("Inform the procedure to be carried out: \n");
-        getchar(); // Limpa o buffer antes de ler a descrição
+        getchar(); 
         fgets(newPatient.description, sizeof(newPatient.description), stdin);
         newPatient.description[strcspn(newPatient.description, "\n")] = '\0';
 
@@ -69,9 +69,9 @@ void insertIntoHeap(Heap *heap, NodePatient **root, List table[]) {
         strcpy(newPatient.dataInputs.productName, results->name);
         newPatient.dataInputs.amount = results->quantity;
 
-        // Insere o novo paciente na heap
+    
         heap->Patient[heap->size] = newPatient;
-        heapUp(heap, heap->size); // Chamar heapUp após a inserção
+        heapUp(heap, heap->size); 
         heap->size++;
     }
 }
@@ -96,7 +96,7 @@ void heapBelow(Heap *heap, int index) {
 }
 
 void searchByCPF(Heap *heap, const char *CPF) {
-    int found = 0;  // Flag to indicate if the patient is found
+    int found = 0;  
     
     for (int i = 0; i < heap->size; i++) {
         if (strcmp(heap->Patient[i].dataPataient.cpf, CPF) == 0) {
@@ -106,7 +106,7 @@ void searchByCPF(Heap *heap, const char *CPF) {
             printf("Description: %s\n", heap->Patient[i].description);
             printf("Input: %s, Amount: %d\n", heap->Patient[i].dataInputs.productName, heap->Patient[i].dataInputs.amount);
             found = 1;
-            break;  // Stop after finding the first match
+            break;  
         }
     }
 
@@ -121,7 +121,7 @@ Patient removeHeap(Heap *heap) {
         exit(1);
     }
 
-    // Remove a raiz (maior valor)
+    
     Patient patientRemoved = heap->Patient[0];
     heap->Patient[0] = heap->Patient[heap->size - 1];
     heap->size--;
@@ -154,7 +154,7 @@ void writeToFile(Heap *heap) {
         return;
     }
 
-    // Grava na ordem decrescente, já que o heap é uma max-heap
+    
     for (int i = 0; i < heap->size; i++) {
         fprintf(file, "%s\n", heap->Patient[i].dataPataient.name);               
         fprintf(file, "%s\n", heap->Patient[i].dataPataient.cpf);   
@@ -169,49 +169,49 @@ void writeToFile(Heap *heap) {
 }
 
 Heap* loadFromFileHeap(Heap *heap) {
-    // Abre o arquivo para leitura
+   
     FILE *file = fopen("consultationBakn.txt", "r");
     if (file == NULL) {
         printf("Error opening file for reading!\n");
-        return NULL;  // Retorna NULL se houver erro ao abrir o arquivo
+        return NULL; 
     }
 
-    // Variável temporária para armazenar os dados do paciente
+   
     Patient tempPatient;
     heap->size = 0;
 
-    // Lê o arquivo linha por linha
+   
     while (fgets(tempPatient.dataPataient.name, sizeof(tempPatient.dataPataient.name), file) != NULL) {
-        // Remove o '\n' da string lida
+        
         tempPatient.dataPataient.name[strcspn(tempPatient.dataPataient.name, "\n")] = '\0';
 
-        // Lê o CPF e a idade (assumindo que estão em uma linha separados por espaços)
+        
         if (fscanf(file, "%s %d\n", tempPatient.dataPataient.cpf, &tempPatient.age) != 2) {
             printf("Error reading CPF and age.\n");
             fclose(file);
-            return NULL;  // Retorna NULL se houver erro ao ler o CPF e a idade
+            return NULL;  
         }
 
-        // Lê a descrição
+       
         fgets(tempPatient.description, sizeof(tempPatient.description), file);
         tempPatient.description[strcspn(tempPatient.description, "\n")] = '\0';
 
-        // Lê os dados de entrada do paciente
+        
         fscanf(file, "%s %d\n", tempPatient.dataInputs.productName, &tempPatient.dataInputs.amount);
 
-        // Adiciona o paciente na heap e chama heapUp
+        
         heap->Patient[heap->size] = tempPatient;
         heapUp(heap, heap->size);
         heap->size++;
     }
 
-    fclose(file);  // Fecha o arquivo
+    fclose(file);  
     printf("Data successfully loaded from file.\n");
-    return heap; // Retorna a heap carregada
+    return heap;
 }
 
 void editConsultationByCPF(Heap *heap, const char *CPF, List table[]) {
-    int found = 0; // Flag para indicar se o paciente foi encontrado
+    int found = 0;
 
     for (int i = 0; i < heap->size; i++) {
         if (strcmp(heap->Patient[i].dataPataient.cpf, CPF) == 0) {
@@ -220,24 +220,24 @@ void editConsultationByCPF(Heap *heap, const char *CPF, List table[]) {
             printf("Current Description: %s\n", heap->Patient[i].description);
             printf("Current Input: %s, Amount: %d\n", heap->Patient[i].dataInputs.productName, heap->Patient[i].dataInputs.amount);
 
-            // Edição da descrição
+            
             printf("Enter new description (leave empty to keep current): ");
-            getchar(); // Limpa o buffer antes de ler a nova descrição
-            char newDescription[100]; // Ajuste o tamanho conforme necessário
+            getchar();
+            char newDescription[100];
             fgets(newDescription, sizeof(newDescription), stdin);
-            newDescription[strcspn(newDescription, "\n")] = '\0'; // Remove nova linha
+            newDescription[strcspn(newDescription, "\n")] = '\0';
 
-            // Se a nova descrição não estiver vazia, atualiza
+           
             if (strlen(newDescription) > 0) {
                 strcpy(heap->Patient[i].description, newDescription);
             }
 
-            // Informar os novos dados de entrada do procedimento
+           
             printf("Inform the new equipment needed for the procedure:\n");
             int totalDecremented = 0;
             DecrementResult* results = decrement(table, &totalDecremented);
 
-            // Verifica se a decrementação foi bem-sucedida
+            
             if (results != NULL) {
                 strcpy(heap->Patient[i].dataInputs.productName, results->name);
                 heap->Patient[i].dataInputs.amount = results->quantity;
