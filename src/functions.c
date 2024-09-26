@@ -175,7 +175,9 @@ void menuConsultation(List table[]){
                 printf("Consultation carried out successfully!\n");
                 break;
             case 5:
-                // Função para editar dados da consulta
+                printf("Enter the CPF: ");
+                scanf("%s", CPF);
+                editConsultationByCPF(heap, CPF, table);
                 break;
             case 6:
                 printf("Returning to main menu...\n");

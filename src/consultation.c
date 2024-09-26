@@ -148,16 +148,14 @@ void displayHeap(Heap *heap) {
 }
 
 void writeToFile(Heap *heap) {
-    // Abre o arquivo para escrita (cria ou substitui o conteúdo)
     FILE *file = fopen("consultationBakn.txt", "w");
     if (file == NULL) {
         printf("Error opening file!\n");
         return;
     }
 
-    // Percorre a heap e grava os dados de cada paciente
+    // Grava na ordem decrescente, já que o heap é uma max-heap
     for (int i = 0; i < heap->size; i++) {
-        // Escreve os dados no arquivo de acordo com o formato especificado
         fprintf(file, "%s\n", heap->Patient[i].dataPataient.name);               
         fprintf(file, "%s\n", heap->Patient[i].dataPataient.cpf);   
         fprintf(file, "%d\n", heap->Patient[i].age);               
@@ -166,7 +164,7 @@ void writeToFile(Heap *heap) {
         fprintf(file, "%d\n", heap->Patient[i].dataInputs.amount);        
     }
 
-    fclose(file);  // Fecha o arquivo
+    fclose(file);
     printf("Data successfully written to file.\n");
 }
 
@@ -210,5 +208,51 @@ Heap* loadFromFileHeap(Heap *heap) {
     fclose(file);  // Fecha o arquivo
     printf("Data successfully loaded from file.\n");
     return heap; // Retorna a heap carregada
+}
+
+void editConsultationByCPF(Heap *heap, const char *CPF, List table[]) {
+    int found = 0; // Flag para indicar se o paciente foi encontrado
+
+    for (int i = 0; i < heap->size; i++) {
+        if (strcmp(heap->Patient[i].dataPataient.cpf, CPF) == 0) {
+            printf("Patient found:\n");
+            printf("Name: %s, CPF: %s, Age: %d\n", heap->Patient[i].dataPataient.name, heap->Patient[i].dataPataient.cpf, heap->Patient[i].age);
+            printf("Current Description: %s\n", heap->Patient[i].description);
+            printf("Current Input: %s, Amount: %d\n", heap->Patient[i].dataInputs.productName, heap->Patient[i].dataInputs.amount);
+
+            // Edição da descrição
+            printf("Enter new description (leave empty to keep current): ");
+            getchar(); // Limpa o buffer antes de ler a nova descrição
+            char newDescription[100]; // Ajuste o tamanho conforme necessário
+            fgets(newDescription, sizeof(newDescription), stdin);
+            newDescription[strcspn(newDescription, "\n")] = '\0'; // Remove nova linha
+
+            // Se a nova descrição não estiver vazia, atualiza
+            if (strlen(newDescription) > 0) {
+                strcpy(heap->Patient[i].description, newDescription);
+            }
+
+            // Informar os novos dados de entrada do procedimento
+            printf("Inform the new equipment needed for the procedure:\n");
+            int totalDecremented = 0;
+            DecrementResult* results = decrement(table, &totalDecremented);
+
+            // Verifica se a decrementação foi bem-sucedida
+            if (results != NULL) {
+                strcpy(heap->Patient[i].dataInputs.productName, results->name);
+                heap->Patient[i].dataInputs.amount = results->quantity;
+            } else {
+                printf("Error while fetching equipment details. Keeping the previous values.\n");
+            }
+
+            printf("Consultation updated successfully!\n");
+            found = 1;
+            break; 
+        }
+    }
+
+    if (!found) {
+        printf("Patient with CPF %s not found.\n", CPF);
+    }
 }
 

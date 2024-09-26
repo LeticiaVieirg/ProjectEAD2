@@ -47,4 +47,5 @@ void displayHeap(Heap *heap);
 void searchByCPF(Heap *heap, const char *CPF);
 void writeToFile(Heap *heap);
 Heap* loadFromFileHeap(Heap *heap);
+void editConsultationByCPF(Heap *heap, const char *CPF, List table[]);
 #endif 
