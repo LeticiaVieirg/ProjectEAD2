@@ -1,10 +1,10 @@
 #include "../include/functions.h"
 
-
 void menuStock(List table[]) {
     int option;
 
     do {
+        system(CLEAR);
         printf("\n=======================================\n");
         printf("               Stock area                \n");
         printf("=========================================\n");
@@ -69,13 +69,14 @@ void menuStock(List table[]) {
 void menuPatient(){
     NodePatient *root = NULL;
     int option;
-    char cpf[12]; // CPF tem 11 dígitos + terminador nulo '\0'
+    char cpf[12];
     char name[100];
     int age;
 
     loadPatients(&root); 
 
     do {
+        system(CLEAR);
         printf("\n=======================================\n");
         printf("              Patient area               \n");
         printf("=========================================\n");
@@ -89,7 +90,7 @@ void menuPatient(){
         
         if (scanf("%d", &option) != 1 || option < 1 || option > 5) {
             printf("Invalid option. Please enter a number between 1 and 5.\n");
-            clear_buffer(); // Limpa o buffer em caso de erro
+            clear_buffer();
             option = -1;
         }
 
@@ -108,10 +109,10 @@ void menuPatient(){
                 editPatient(root, cpf);
                 break;
             case 4:
-                getchar(); // Limpa o buffer antes de fgets()
+                getchar(); 
                 printf("Enter the patient's name: ");
                 fgets(name, sizeof(name), stdin);
-                name[strcspn(name, "\n")] = 0; // Remove o '\n' capturado pelo fgets
+                name[strcspn(name, "\n")] = 0;
                 
                 printf("Enter the patient's CPF: ");
                 scanf("%s", cpf);
@@ -147,6 +148,7 @@ void menuConsultation(List table[]){
     loadFromFileHeap(heap);
 
     do {
+        system(CLEAR); 
         printf("\n=======================================\n");
         printf("            Consultation area            \n");
         printf("=========================================\n");

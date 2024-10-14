@@ -6,8 +6,7 @@
 #include "../include/stock.h"
 #include "../include/patient.h"
 #include "../include/consultation.h"
-
-
+#include "../include/clear.h"
 
 // Function to display the stock menu and handle stock-related operations
 void menuStock(List table[]);

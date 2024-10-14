@@ -8,6 +8,7 @@ int main(void) {
     int option;
 
     do {
+        system(CLEAR);
         printf("\n=======================================\n");
         printf("           Dental Clinic System          \n");
         printf("=========================================\n");
