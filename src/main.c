@@ -27,15 +27,19 @@ int main(void) {
 
         switch (option) {
             case 1:
+                system(CLEAR);
                 menuStock(table);
                 break;
             case 2:
+                system(CLEAR);
                 menuPatient();
                 break;
             case 3:
+                system(CLEAR);
                 menuConsultation(table);
                 break;
             case 4:
+                system(CLEAR);
                 printf("Exiting...\n");
                 break;
             default:

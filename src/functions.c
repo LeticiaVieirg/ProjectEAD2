@@ -1,5 +1,6 @@
 #include "../include/functions.h"
 
+
 void menuStock(List table[]) {
     int option;
 
@@ -26,7 +27,9 @@ void menuStock(List table[]) {
 
         switch(option) {
             case 1:
-                insertInputs(table); 
+                insertInputs(table);
+                printf("\nPressione Enter para continuar...");
+                getchar(); 
                 break;
             case 2: {
                 int barcode;
@@ -43,19 +46,30 @@ void menuStock(List table[]) {
                 } else {
                     printf("Product not found.\n");
                 }
+                printf("\nPressione Enter para continuar...");
+                getchar();
                 break;
             }
             case 3:
-                printInputs(table); 
+                printInputs(table);
+                getchar(); 
+                printf("\nPressione Enter para continuar...");
+                getchar();
                 break;
             case 4: 
                 removeInput(table); 
+                printf("\nPressione Enter para continuar...");
+                getchar();
                 break;
             case 5:
                 editInput(table);
+                printf("\nPressione Enter para continuar...");
+                getchar();
                 break;
             case 6:
                 increment(table);
+                printf("\nPressione Enter para continuar...");
+                getchar();
                 break;
             case 7:
                 printf("Returning to main menu...\n");
@@ -69,7 +83,7 @@ void menuStock(List table[]) {
 void menuPatient(){
     NodePatient *root = NULL;
     int option;
-    char cpf[12];
+    char cpf[12]; // CPF tem 11 dígitos + terminador nulo '\0'
     char name[100];
     int age;
 
@@ -90,7 +104,7 @@ void menuPatient(){
         
         if (scanf("%d", &option) != 1 || option < 1 || option > 5) {
             printf("Invalid option. Please enter a number between 1 and 5.\n");
-            clear_buffer();
+            clear_buffer(); // Limpa o buffer em caso de erro
             option = -1;
         }
 
@@ -99,20 +113,29 @@ void menuPatient(){
                 printf("Enter CPF: ");
                 scanf("%s", cpf);
                 searchPatientByCPF(root, cpf);
+                getchar();
+                printf("\nPressione Enter para continuar...");
+                getchar();
                 break;
             case 2:
                 printInOrder(root);
+                getchar();
+                printf("\nPressione Enter para continuar...");
+                getchar();
                 break;
             case 3:
                 printf("Enter the CPF of the patient to edit: ");
                 scanf("%s", cpf);
                 editPatient(root, cpf);
+                printf("\nPressione Enter para continuar...");
+                getchar();
+                getchar();
                 break;
             case 4:
                 getchar(); 
                 printf("Enter the patient's name: ");
                 fgets(name, sizeof(name), stdin);
-                name[strcspn(name, "\n")] = 0;
+                name[strcspn(name, "\n")] = 0; 
                 
                 printf("Enter the patient's CPF: ");
                 scanf("%s", cpf);
@@ -120,7 +143,10 @@ void menuPatient(){
                 printf("Enter the patient's age: ");
                 scanf("%d", &age);
 
-                insertPatient(&root, name, cpf, age);  
+                insertPatient(&root, name, cpf, age);
+                getchar();  
+                printf("\nPressione Enter para continuar...");
+                getchar();
                 break;
             case 5:
                 printf("Returning to main menu...\n");
@@ -148,7 +174,7 @@ void menuConsultation(List table[]){
     loadFromFileHeap(heap);
 
     do {
-        system(CLEAR); 
+        system(CLEAR);
         printf("\n=======================================\n");
         printf("            Consultation area            \n");
         printf("=========================================\n");
@@ -172,21 +198,36 @@ void menuConsultation(List table[]){
                 printf("Enter the CPF: ");
                 scanf("%s", CPF);
                 searchByCPF(heap, CPF);
+                getchar();
+                printf("\nPressione Enter para continuar...");
+                getchar();
                 break;
             case 2:
                 displayHeap(heap);
+                getchar();
+                printf("\nPressione Enter para continuar...");
+                getchar();
                 break;
             case 3:
                 insertIntoHeap(heap, &root, table); 
+                getchar();
+                printf("\nPressione Enter para continuar...");
+                getchar();
                 break;
             case 4:
                 removeHeap(heap);
                 printf("Consultation carried out successfully!\n");
+                getchar();
+                printf("\nPressione Enter para continuar...");
+                getchar();
                 break;
             case 5:
                 printf("Enter the CPF: ");
                 scanf("%s", CPF);
                 editConsultationByCPF(heap, CPF, table);
+                getchar();
+                printf("\nPressione Enter para continuar...");
+                getchar();
                 break;
             case 6:
                 printf("Returning to main menu...\n");

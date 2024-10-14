@@ -1,12 +1,33 @@
+897
+Espelho de Dente
+10
 456
 Agulha
 7
+678
+Pasta Dental
+50
+523
+teste2
+5
+654
+Broca
+10
+98
+teste4
+5
 852
 Creme dental
 24
 842
 Escova
 98
+543
+teste
+8
+908
+Anestesia
+44
 753
 Ataduras
 100

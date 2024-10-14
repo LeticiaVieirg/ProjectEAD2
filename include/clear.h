@@ -1,5 +1,5 @@
 #ifdef _WIN32
-    #define CLEAR "cls"  // Windows
+    #define CLEAR "cls"
 #else
-    #define CLEAR "clear"  // Linux/Unix
+    #define CLEAR "clear"
 #endif
