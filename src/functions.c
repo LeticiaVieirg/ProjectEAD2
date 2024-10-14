@@ -69,7 +69,7 @@ void menuStock(List table[]) {
 void menuPatient(){
     NodePatient *root = NULL;
     int option;
-    char cpf[11];
+    char cpf[12]; // CPF tem 11 dígitos + terminador nulo '\0'
     char name[100];
     int age;
 
@@ -88,8 +88,8 @@ void menuPatient(){
         printf("Enter your choice: ");
         
         if (scanf("%d", &option) != 1 || option < 1 || option > 5) {
-            printf("Invalid option. Please enter a number between 1 and 4.\n");
-            clear_buffer();
+            printf("Invalid option. Please enter a number between 1 and 5.\n");
+            clear_buffer(); // Limpa o buffer em caso de erro
             option = -1;
         }
 
@@ -103,15 +103,19 @@ void menuPatient(){
                 printInOrder(root);
                 break;
             case 3:
-            printf("Enter the CPF of the patient to edit: ");
-            scanf("%s", cpf);
-            editPatient(root, cpf);
+                printf("Enter the CPF of the patient to edit: ");
+                scanf("%s", cpf);
+                editPatient(root, cpf);
                 break;
             case 4:
+                getchar(); // Limpa o buffer antes de fgets()
                 printf("Enter the patient's name: ");
-                scanf(" %[^\n]", name); 
+                fgets(name, sizeof(name), stdin);
+                name[strcspn(name, "\n")] = 0; // Remove o '\n' capturado pelo fgets
+                
                 printf("Enter the patient's CPF: ");
                 scanf("%s", cpf);
+                
                 printf("Enter the patient's age: ");
                 scanf("%d", &age);
 
@@ -124,8 +128,11 @@ void menuPatient(){
                 printf("Invalid option.\n");
         }
     } while(option != 5);
+
     FILE *file = fopen("PatientBank.txt", "w");
-    fclose(file);
+    if (file) {
+        fclose(file);
+    }
     savePatients(root);
     freeTree(root);
 }

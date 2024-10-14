@@ -129,9 +129,10 @@ void savePatients(NodePatient *root) {
         return;
     }
 
+
     if (root) {
-        savePatients(root->left); 
-        fprintf(file, "%s\n%s\n%d\n", root->name, root->cpf, root->age); 
+        savePatients(root->left);
+        fprintf(file, "%s\n%s\n%d\n", root->name, root->cpf, root->age);
         savePatients(root->right); 
     }
     
