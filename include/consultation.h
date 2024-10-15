@@ -7,6 +7,7 @@
 //
 typedef struct {
     int age;
+    int null;
     NodePatient dataPataient;
     Inputs dataInputs;
     char description[50];

@@ -27,7 +27,7 @@ teste
 8
 908
 Anestesia
-44
+42
 753
 Ataduras
 100

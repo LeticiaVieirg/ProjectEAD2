@@ -117,8 +117,9 @@ void searchByCPF(Heap *heap, const char *CPF) {
 
 Patient removeHeap(Heap *heap) {
     if (heap->size == 0) {
-        printf("Heap Null!\n");
-        exit(1);
+        Patient nullPatient;
+        nullPatient.null = -1;
+        return nullPatient;
     }
 
     

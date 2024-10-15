@@ -83,7 +83,7 @@ void menuStock(List table[]) {
 void menuPatient(){
     NodePatient *root = NULL;
     int option;
-    char cpf[12]; // CPF tem 11 dígitos + terminador nulo '\0'
+    char cpf[12]; 
     char name[100];
     int age;
 
@@ -104,7 +104,7 @@ void menuPatient(){
         
         if (scanf("%d", &option) != 1 || option < 1 || option > 5) {
             printf("Invalid option. Please enter a number between 1 and 5.\n");
-            clear_buffer(); // Limpa o buffer em caso de erro
+            clear_buffer();
             option = -1;
         }
 
@@ -165,6 +165,7 @@ void menuPatient(){
 }
 
 void menuConsultation(List table[]){
+    Patient patient;
     NodePatient *root = NULL;
     Heap *heap = createHeap(10);
     loadPatients(&root); 
@@ -215,8 +216,12 @@ void menuConsultation(List table[]){
                 getchar();
                 break;
             case 4:
-                removeHeap(heap);
-                printf("Consultation carried out successfully!\n");
+                patient =  removeHeap(heap);
+                if(patient.null == -1){
+                    printf("There are no queries to remove!\n");
+                } else {
+                    printf("Consultation carried out successfully!\n");
+                }
                 getchar();
                 printf("\nPressione Enter para continuar...");
                 getchar();

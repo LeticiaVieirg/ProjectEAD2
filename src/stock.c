@@ -209,14 +209,7 @@ DecrementResult* decrement(List table[], int* totalDecremented) {
         } else {
             printf("Product not found.\n");
         }
-
-        
-        char choice;
-        printf("Do you want to decrement another product? (y/n): ");
-        scanf(" %c", &choice);
-        if (choice != 'y') {
-            break; 
-        }
+        break;
     }
 
     return results; 
