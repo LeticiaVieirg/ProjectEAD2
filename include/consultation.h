@@ -5,7 +5,6 @@
 #include "../include/patient.h"
 #include "../include/functions.h"
 
-//
 typedef struct {
     int age;
     int null;
@@ -14,7 +13,6 @@ typedef struct {
     char description[50];
 } Patient;
 
-//
 typedef struct {
     Patient *Patient;
     int size;

@@ -267,4 +267,3 @@ void editConsultationByCPF(Heap *heap, const char *CPF, List table[]) {
         printf("Patient with CPF %s not found.\n", CPF);
     }
 }
-

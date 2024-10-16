@@ -147,4 +147,3 @@ void freeTree(NodePatient *root) {
         free(root);
     }
 }
-
