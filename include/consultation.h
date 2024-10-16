@@ -3,6 +3,7 @@
 //declaring the libraries
 #include "../include/stock.h"
 #include "../include/patient.h"
+#include "../include/functions.h"
 
 //
 typedef struct {

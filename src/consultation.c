@@ -43,8 +43,18 @@ void insertIntoHeap(Heap *heap, NodePatient **root, List table[]) {
     Patient newPatient;
     char CPF[11];
 
-    printf("Enter the patient's CPF: ");
-    scanf("%s", CPF);
+   do {
+        printf("Enter the patient's CPF: ");
+        scanf("%11s", CPF);  // Limitando o tamanho do CPF para 11 caracteres
+
+        if (!isOnlyNumbers(CPF)) {
+            system(CLEAR);
+            printf("Invalid CPF! Enter numbers only.\n");
+            clear_buffer();
+        } else {
+            system(CLEAR);
+        }
+    } while (!isOnlyNumbers(CPF));
 
     NodePatient *foundPatient = returnSearchPatientByCPF(*root, CPF);
     if (foundPatient == NULL) {
@@ -221,7 +231,8 @@ void editConsultationByCPF(Heap *heap, const char *CPF, List table[]) {
             printf("Current Description: %s\n", heap->Patient[i].description);
             printf("Current Input: %s, Amount: %d\n", heap->Patient[i].dataInputs.productName, heap->Patient[i].dataInputs.amount);
 
-            
+            printf("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = \n");
+
             printf("Enter new description (leave empty to keep current): ");
             getchar();
             char newDescription[100];

@@ -5,6 +5,7 @@
         "functions.h": "c",
         "patient.h": "c",
         "string.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "consultation.h": "c"
     }
 }

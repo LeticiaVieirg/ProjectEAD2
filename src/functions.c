@@ -238,8 +238,18 @@ void menuConsultation(List table[]){
 
         switch(option) {
             case 1:
-                printf("Enter the CPF: ");
-                scanf("%s", CPF);
+                do{
+                    printf("Enter the patient's CPF: ");
+                    scanf("%s", CPF);
+
+                    if (!isOnlyNumbers(CPF)) {
+                        system(CLEAR);
+                        printf("Invalid CPF! Enter numbers only.\n");
+                        clear_buffer();
+                    }
+                } while (!isOnlyNumbers(CPF));
+                system(CLEAR);
+
                 searchByCPF(heap, CPF);
                 getchar();
                 printf("\nPressione Enter para continuar...");
@@ -269,8 +279,18 @@ void menuConsultation(List table[]){
                 getchar();
                 break;
             case 5:
-                printf("Enter the CPF: ");
-                scanf("%s", CPF);
+                do{
+                    printf("Enter the patient's CPF: ");
+                    scanf("%s", CPF);
+
+                    if (!isOnlyNumbers(CPF)) {
+                        system(CLEAR);
+                        printf("Invalid CPF! Enter numbers only.\n");
+                        clear_buffer();
+                    }
+                } while (!isOnlyNumbers(CPF));
+                system(CLEAR);
+
                 editConsultationByCPF(heap, CPF, table);
                 getchar();
                 printf("\nPressione Enter para continuar...");
