@@ -110,22 +110,41 @@ void menuPatient(){
 
         switch(option) {
             case 1:
-                printf("Enter CPF: ");
-                scanf("%s", cpf);
+                do {
+                    printf("Enter CPF (numbers only): ");
+                    scanf("%s", cpf);
+                    
+                    if (!isOnlyNumbers(cpf)) {
+                        system(CLEAR);
+                        printf("Invalid CPF! Enter numbers only.\n");
+                        clear_buffer();
+                    }
+                } while (!isOnlyNumbers(cpf)); 
+                system(CLEAR);
                 searchPatientByCPF(root, cpf);
                 getchar();
-                printf("\nPressione Enter para continuar...");
+                printf("\nPress Enter to continue...");
                 getchar();
                 break;
             case 2:
+                system(CLEAR);
                 printInOrder(root);
                 getchar();
-                printf("\nPressione Enter para continuar...");
+                printf("\nPress Enter to continue...");
                 getchar();
                 break;
             case 3:
-                printf("Enter the CPF of the patient to edit: ");
-                scanf("%s", cpf);
+                do{
+                    printf("Enter the CPF of the patient to edit: ");
+                    scanf("%s", cpf);
+
+                    if (!isOnlyNumbers(cpf)) {
+                        system(CLEAR);
+                        printf("Invalid CPF! Enter numbers only.\n");
+                        clear_buffer();
+                    }
+                } while (!isOnlyNumbers(cpf));
+                system(CLEAR);
                 editPatient(root, cpf);
                 printf("\nPressione Enter para continuar...");
                 getchar();
@@ -133,15 +152,38 @@ void menuPatient(){
                 break;
             case 4:
                 getchar(); 
-                printf("Enter the patient's name: ");
-                fgets(name, sizeof(name), stdin);
-                name[strcspn(name, "\n")] = 0; 
-                
-                printf("Enter the patient's CPF: ");
-                scanf("%s", cpf);
-                
-                printf("Enter the patient's age: ");
-                scanf("%d", &age);
+                do {
+                    printf("Enter the patient's name: ");
+                    fgets(name, sizeof(name), stdin);
+                    name[strcspn(name, "\n")] = 0; 
+
+                    if (!isOnlyLetters(name)) {
+                        system(CLEAR);
+                        printf("Invalid name! Enter letters only.\n");
+                    }
+                } while (!isOnlyLetters(name));
+
+                do{
+                    printf("Enter the patient's CPF: ");
+                    scanf("%s", cpf);
+
+                    if (!isOnlyNumbers(cpf)) {
+                        system(CLEAR);
+                        printf("Invalid CPF! Enter numbers only.\n");
+                        clear_buffer();
+                    }
+                } while (!isOnlyNumbers(cpf));
+
+                do {
+                    printf("Enter the patient's age: ");
+                    if (scanf("%d", &age) != 1 || age <= 0) {
+                        system(CLEAR);
+                        printf("Invalid age! Enter a valid number.\n");
+                        clear_buffer();
+                    } else {
+                        break;
+                    }
+                } while (1);
 
                 insertPatient(&root, name, cpf, age);
                 getchar();  
@@ -248,4 +290,22 @@ void menuConsultation(List table[]){
 void clear_buffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
+}
+
+int isOnlyLetters(char *str){
+    for(int i  = 0; str[i] != '\0'; i++){
+        if(!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z'))){
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int isOnlyNumbers(char *str) {
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (!(str[i] >= '0' && str[i] <= '9')) {
+            return 0;
+        }
+    }
+    return 1;
 }

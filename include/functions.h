@@ -20,4 +20,10 @@ void menuConsultation(List table[]);
 // Function to clear the input buffer
 void clear_buffer();
 
+//Function that checks if there are only letters in a string
+int isOnlyLetters(char *str);
+
+//Function that checks if there are only numbers in a string
+int isOnlyNumbers(char *str);
+
 #endif /* FUNCOES_H */
