@@ -35,6 +35,7 @@ This system uses data structures such as linked lists to organize patient inform
 The management system for a dental clinic - CHAR OF SMILLE, developed in C Language, aims to simplify the operations crucial to the efficient functioning of the establishment. It provides features such as adding, deleting, searching and editing patients and appointments, as well as listing patients and their appointment histories. These features are essential to ensure effective and organized management of dental clinic activities.
 
 ## **Goal**
+The use of different data structures in the project brought significant improvements in several areas. The Binary Search Tree (BTR) was efficient in organizing patients by CPF, providing speed in searches and automatic display of ordered data, in addition to facilitating insertion and editing without compromising the structure. The hash table, in turn, optimized the management of products by barcode, allowing quick access and simplifying inventory management. The use of a heap in query management dynamically prioritized the most urgent ones, ensuring fast and efficient responses even with high demand.
 
 ## **Development**
 
