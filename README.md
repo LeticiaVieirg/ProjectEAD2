@@ -19,8 +19,6 @@ Development of a system in C Language for the management of the dental clinic "C
 > [Goal](#goal)
 >
 > [Development](#development)
-> 
-> [Repository Organization](#repository-organization)
 >
 > [Build and rum](#build-and-run)
 >
