@@ -40,7 +40,7 @@ The use of different data structures in the project brought significant improvem
 ## **Development**
 
 ### Attributes
-#### *attributes*
+#### *Atributes*
 - [x] Identification
 - [x] Type
 - [x] Available Equipment - Stock
