@@ -167,6 +167,7 @@ List* loadFromFile(List table[]) {
 }
 
 DecrementResult* decrement(List table[], int* totalDecremented) {
+    char input[50];
     int key, quantity;
     Node* foundItem;
     DecrementResult* results = malloc(10 * sizeof(DecrementResult));
@@ -176,43 +177,52 @@ DecrementResult* decrement(List table[], int* totalDecremented) {
         printf("Registered products:\n");
         printInputs(table);
 
-        printf("Enter the barcode of the input you want: ");
-        while (scanf("%d", &key) != 1) {
-            printf("Error! Please, enter an integer value in this field.\n:");
-            while (getchar() != '\n');
-        }
-        while (getchar() != '\n');
+        while (1) {
+            printf("Enter the barcode of the input you want (or press Enter to select): ");
+            fgets(input, sizeof(input), stdin);
 
-        foundItem = search(table, key);
-
-        if (foundItem != NULL) {
-            printf("Enter the quantity you want: ");
-            while (scanf("%d", &quantity) != 1) {
-                printf("Error! Please, enter an integer value in this field.\n:");
-                while (getchar() != '\n');
+            if (input[0] == '\n') {
+                printf("Please enter an input and press enter.\n");
+                continue;
             }
-            while (getchar() != '\n');
 
-            if (foundItem->input.amount >= quantity) {
-                foundItem->input.amount -= quantity;
-
-          
-                strcpy(results[*totalDecremented].name, foundItem->input.productName);
-                results[*totalDecremented].quantity = quantity;
-                (*totalDecremented)++; 
-
-                printFileTxt(table);
-                printf("Decrement successful. New amount: %d\n", foundItem->input.amount);
+            if (sscanf(input, "%d", &key) != 1) {
+                printf("Error! Please, enter an integer value in this field.\n");
             } else {
-                printf("Error: Not enough quantity to decrement.\n");
+                foundItem = search(table, key);
+                if (foundItem == NULL) {
+                    printf("Product not found. Please, enter a valid barcode.\n");
+                } else {
+                    break; 
+                }
             }
-        } else {
-            printf("Product not found.\n");
         }
+
+        
+        printf("Enter the quantity you want: ");
+        while (scanf("%d", &quantity) != 1) {
+            printf("Error! Please, enter an integer value in this field.\n:");
+            while (getchar() != '\n');  
+        }
+        while (getchar() != '\n');  
+
+        if (foundItem->input.amount >= quantity) {
+            foundItem->input.amount -= quantity;
+
+            strcpy(results[*totalDecremented].name, foundItem->input.productName);
+            results[*totalDecremented].quantity = quantity;
+            (*totalDecremented)++; 
+
+            printFileTxt(table);
+            printf("Decrement successful. New amount: %d\n", foundItem->input.amount);
+        } else {
+            printf("Error: Not enough quantity to decrement.\n");
+        }
+
         break;
     }
 
-    return results; 
+    return results;
 }
 
 void increment(List table[]) {
