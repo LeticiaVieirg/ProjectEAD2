@@ -1,7 +1,7 @@
-# **Sistema de Gestão - Clínica Odontológica**
+# **Management System - Dental Clinic**
 Development of a system in C Language for the management of the dental clinic "Char of Smiles", including the manipulation of equipment stock, consultations and patients.
 
-## **Desenvolvedores**
+## **Developers**
 > [Letícia Vieira Gonçalves - Git Master](https://github.com/LeticiaVieirg)
 >
 > [Maria Isabelly de Lima Sousa - Edit](https://github.com/isabellylimals)
