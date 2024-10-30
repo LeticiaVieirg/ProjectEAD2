@@ -305,6 +305,7 @@ void menuConsultation(List table[]){
     } while(option != 6);
 
     writeToFile(heap);
+    freeHeap(heap);
 }
 
 void clear_buffer() {
