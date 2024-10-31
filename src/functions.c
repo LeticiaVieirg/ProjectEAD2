@@ -313,9 +313,11 @@ void clear_buffer() {
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
-int isOnlyLetters(char *str){
-    for(int i  = 0; str[i] != '\0'; i++){
-        if(!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z'))){
+int isOnlyLetters(char *str) {
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (!((str[i] >= 'a' && str[i] <= 'z') || 
+              (str[i] >= 'A' && str[i] <= 'Z') || 
+              str[i] == ' ')) {
             return 0;
         }
     }

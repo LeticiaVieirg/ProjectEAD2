@@ -1,0 +1,27 @@
+741
+Cariostático
+10
+963
+Flúor tópico
+30
+456
+Matriz Metálica
+43
+159
+Anestésico Tópico
+49
+123
+Resina A1
+35
+852
+Cimento Cirúrgico
+20
+789
+Fluor Verniz
+30
+321
+Resina 0A2
+35
+753
+Bicarbonato de Sódio
+48
